@@ -1,0 +1,74 @@
+{
+  "brand": {
+    "name": "Parking SV"
+  },
+  "nav": {
+    "home": "Home",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu"
+  },
+  "hero": {
+    "eyebrow": "Parking SV",
+    "title": "We all face this problem.",
+    "description": "In El Salvador and around the world, people lose time, money and energy looking for parking every day.",
+    "descriptionSecondary": "Parking SV is a fast and reliable way to find available spaces without stress or wasted time.",
+    "primaryCta": "Get started",
+    "secondaryCta": "Publish my space",
+    "badge": "Minimal homepage",
+    "imageAlt": "Parking problem illustration"
+  },
+  "features": {
+    "sections": [
+      {
+        "id": "solucion1",
+        "title": "Parking SV has the answer",
+        "description": [
+          "Parking SV connects people who need parking with people who have space available.",
+          "No friction, no wasted time, no stress."
+        ],
+        "bullets": [
+          "Publish your lot or start earning.",
+          "Find a nearby parking space in minutes."
+        ],
+        "image": "/parkingsv/solution-card.png",
+        "alt": "Parking SV solution"
+      },
+      {
+        "id": "solucion2",
+        "title": "How it works?",
+        "description": [
+          "Explore the parking list in real time.",
+          "Find spaces near your destination and review the space details."
+        ],
+        "bullets": [
+          "Select a parking space.",
+          "See the map and follow the route."
+        ],
+        "image": "/parkingsv/process-card.png",
+        "alt": "Parking SV flow"
+      },
+      {
+        "id": "solucion3",
+        "title": "Why Parking SV?",
+        "description": [
+          "Built by Salvadorans, for Salvadorans.",
+          "No commissions, no complicated apps."
+        ],
+        "bullets": [
+          "Verified community.",
+          "Saves time, fuel and money."
+        ],
+        "image": "/parkingsv/value-card.png",
+        "alt": "Why choose Parking SV"
+      }
+    ]
+  },
+  "footer": {
+    "adEyebrow": "MVP monetization",
+    "adTitle": "Advertise here",
+    "adDescription": "Ideal for car washes, workshops, nearby restaurants, local tourism and driver-focused services.",
+    "adCta": "Reserve space",
+    "socialTitle": "Follow us on social media!",
+    "copyright": "Copyright © 2026 Parking SV"
+  }
+}

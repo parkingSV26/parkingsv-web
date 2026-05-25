@@ -1,0 +1,324 @@
+.page {
+  min-height: calc(100vh - 70px);
+  padding: 1.4rem 0 4rem;
+  background: transparent;
+}
+
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background: #ffffff;
+  box-shadow: 0 18px 40px rgba(18, 31, 53, 0.08);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.headerTitleWrap {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.headerTitleWrap h1 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: clamp(1.9rem, 3vw, 2.2rem);
+}
+
+.headerTitleWrap p {
+  margin: 0;
+  color: #6c757d;
+}
+
+.headerActions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.button {
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button:hover {
+  opacity: 0.94;
+  transform: translateY(-1px);
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.primaryButton {
+  background: #0c6ff9;
+  color: #ffffff;
+  box-shadow: 0 12px 24px rgba(12, 111, 249, 0.2);
+}
+
+.outlineButton {
+  background: transparent;
+  color: #6c757d;
+  border: 1px solid #dee2e6;
+}
+
+.filterWrap {
+  position: relative;
+}
+
+.filterMenu,
+.actionMenu {
+  position: absolute;
+  right: 0;
+  display: none;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: #ffffff;
+  box-shadow: 0 14px 32px rgba(18, 31, 53, 0.14);
+  z-index: 20;
+}
+
+.filterMenu {
+  top: calc(100% + 0.5rem);
+  min-width: 180px;
+}
+
+.filterMenuOpen,
+.actionMenuOpen {
+  display: block;
+}
+
+.filterMenuItem,
+.actionMenuItem {
+  width: 100%;
+  padding: 0.8rem 0.95rem;
+  border: 0;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  cursor: pointer;
+  text-align: left;
+  color: #233042;
+  transition: background-color 0.2s ease;
+}
+
+.filterMenuItem:hover,
+.actionMenuItem:hover {
+  background: #f8f9fa;
+}
+
+.filterMenuItemActive {
+  background: #edf4ff;
+  color: #0c6ff9;
+}
+
+.statusRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 1.2rem;
+}
+
+.statusChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 36px;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  background: #f4f7fb;
+  color: #526172;
+  font-size: 0.92rem;
+}
+
+.statusChip strong {
+  color: #203147;
+}
+
+.notificationsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.notificationItem {
+  position: relative;
+  padding: 1rem;
+  border-left: 4px solid #0c6ff9;
+  border-radius: 0.85rem;
+  background: #ffffff;
+  box-shadow: 0 6px 16px rgba(18, 31, 53, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+}
+
+.notificationItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(18, 31, 53, 0.1);
+}
+
+.notificationUnread {
+  background: #f8fbff;
+  border-left-width: 6px;
+}
+
+.notificationRead {
+  opacity: 0.86;
+}
+
+.notificationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.7rem;
+  padding-right: 2.2rem;
+}
+
+.notificationType {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.notificationDate {
+  color: #6c757d;
+  font-size: 0.82rem;
+}
+
+.notificationTitle {
+  margin: 0 0 0.45rem;
+  color: #2c3e50;
+  font-size: 1.05rem;
+}
+
+.notificationUnread .notificationTitle {
+  font-weight: 800;
+}
+
+.notificationContent {
+  margin: 0;
+  color: #555555;
+  line-height: 1.55;
+  padding-right: 2.2rem;
+}
+
+.notificationActions {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.actionButton {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #6c757d;
+  cursor: pointer;
+}
+
+.actionButton:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #2c3e50;
+}
+
+.actionMenu {
+  top: calc(100% + 0.45rem);
+  width: 220px;
+}
+
+.actionMenuItem {
+  justify-content: flex-start;
+}
+
+.actionMenuDelete {
+  color: #b42318;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 3rem 1.2rem;
+  color: #6c757d;
+}
+
+.emptyState i {
+  font-size: 3rem;
+  color: #d7dde5;
+  margin-bottom: 1rem;
+}
+
+.emptyState h3,
+.emptyState p {
+  margin: 0;
+}
+
+.emptyState h3 {
+  margin-bottom: 0.55rem;
+  color: #2c3e50;
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding-top: 0.8rem;
+  }
+
+  .container {
+    margin: 0 0.75rem;
+    padding: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+  }
+
+  .headerActions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filterWrap {
+    width: 100%;
+  }
+
+  .filterMenu {
+    left: 0;
+    right: auto;
+    width: 100%;
+  }
+
+  .button {
+    width: 100%;
+  }
+
+  .notificationHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,1094 @@
+.page {
+  background: transparent;
+  padding: 1.25rem 0 3.2rem;
+  color: #333;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.parkingHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.25rem;
+  margin-bottom: 1.4rem;
+  flex-wrap: wrap;
+}
+
+.headerInfo {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.backRow {
+  display: flex;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.05rem;
+  border-radius: 999px;
+  background: #f2f5f9;
+  color: #22324c;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.backButton:hover {
+  background: #e4ebf4;
+}
+
+.parkingInfo {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.parkingTitle {
+  margin: 0;
+  color: #333;
+  font-size: clamp(2rem, 3vw, 2.5rem);
+}
+
+.businessName {
+  margin: 0.1rem 0 0.55rem;
+  color: #666;
+  font-size: 1.08rem;
+}
+
+.ratingCategory {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  background: #f8f9fa;
+}
+
+.stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  color: #ffd700;
+}
+
+.ratingValue {
+  font-size: 1.08rem;
+  font-weight: 700;
+}
+
+.newBadge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  background: #28a745;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.category {
+  padding: 0.42rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.categoryBlue {
+  background: #2196f3;
+  color: #fff;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.35rem;
+}
+
+.shareButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.9rem 1.2rem;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.98rem;
+  font-weight: 700;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.shareButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+.shareButtonYellow {
+  background: #ffd600;
+  color: #000;
+}
+
+.imageGallery {
+  display: grid;
+  gap: 10px;
+  margin: 25px 0;
+}
+
+.galleryOne {
+  grid-template-columns: 1fr;
+  grid-template-rows: 420px;
+}
+
+.galleryTwo {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 320px;
+}
+
+.galleryThree {
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: repeat(2, 200px);
+}
+
+.galleryThree .galleryItem:first-child {
+  grid-row: span 2;
+}
+
+.galleryFour {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 200px);
+}
+
+.galleryFive {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 200px);
+}
+
+.galleryFive .galleryItem:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.galleryItem {
+  position: relative;
+  min-height: 160px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #dce4ec;
+  transition: transform 0.25s ease;
+}
+
+.featured {
+  min-height: 200px;
+}
+
+.galleryItem:hover {
+  transform: scale(1.015);
+}
+
+.galleryImage {
+  object-fit: cover;
+}
+
+.extraCount {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.infoButtons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin: 20px 0 30px;
+}
+
+.infoButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 54px;
+  padding: 0.8rem 0.7rem;
+  border: 0;
+  border-radius: 8px;
+  background: #3498db;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.infoButton:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+}
+
+.reservationSection {
+  margin: 30px 0;
+  padding: 25px;
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border-radius: 12px;
+  border-left: 5px solid #4caf50;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.15);
+}
+
+.reservationSection h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0 0 1rem;
+  padding-bottom: 0.95rem;
+  border-bottom: 2px solid #81c784;
+  color: #2e7d32;
+}
+
+.reserveButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  width: 100%;
+  min-height: 58px;
+  padding: 1rem;
+  border: 0;
+  border-radius: 8px;
+  background: linear-gradient(to right, #4caf50, #66bb6a);
+  color: #fff;
+  font-size: 1.08rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.reserveButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(76, 175, 80, 0.4);
+}
+
+.noReservationMessage,
+.loginRequiredMessage {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 15px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.noReservationMessage {
+  background: #fff8e1;
+  border-left: 4px solid #ffc107;
+  color: #f57f17;
+}
+
+.loginRequiredMessage {
+  background: #e3f2fd;
+  border-left: 4px solid #2196f3;
+  color: #1565c0;
+}
+
+.noReservationMessage p,
+.loginRequiredMessage p {
+  margin: 0;
+}
+
+.sectionCard {
+  margin: 30px 0;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid #3498db;
+  background: #f8f9fa;
+}
+
+.sectionCard h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0 0 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #dee2e6;
+  color: #2c3e50;
+}
+
+.sectionDescription {
+  background: #fffde7;
+  border-left-color: #ffd600;
+}
+
+.sectionServices {
+  background: #e8f5e9;
+  border-left-color: #4caf50;
+}
+
+.sectionRestrictions {
+  background: #ffebee;
+  border-left-color: #f44336;
+}
+
+.sectionFees {
+  background: #f5f5f5;
+  border-left-color: #9e9e9e;
+}
+
+.sectionContact {
+  background: #f3e5f5;
+  border-left-color: #9c27b0;
+}
+
+.contactInfo p,
+.physicalRestrictions p {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0.85rem 0;
+  padding: 0.8rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.contactInfo strong,
+.physicalRestrictions strong {
+  margin-right: 0.3rem;
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.serviceItem {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 12px 15px;
+  background: #f7fcff;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.serviceItem:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: #d1ecfa;
+}
+
+.serviceItem i {
+  color: #50db34;
+}
+
+.feesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.feeItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 15px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid #3498db;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feeItem:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+}
+
+.feeIcon {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #e9f7fe;
+  color: #3498db;
+  flex-shrink: 0;
+  font-size: 1.6rem;
+}
+
+.feeDetails {
+  flex: 1;
+}
+
+.feeHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  align-items: center;
+  margin-bottom: 0.45rem;
+}
+
+.vehicleType {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.feePrice {
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: #e74c3c;
+}
+
+.feeMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.65rem;
+  color: #7f8c8d;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.feeTypeTag {
+  padding: 0.18rem 0.5rem;
+  border-radius: 4px;
+  background: #e9f7fe;
+  color: #2f6998;
+  font-weight: 700;
+}
+
+.feeValidity {
+  width: 100%;
+  padding-top: 0.35rem;
+  border-top: 1px dashed #e5e5e5;
+  font-style: italic;
+}
+
+.restrictionsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.restrictionsSection {
+  flex: 1;
+  min-width: 260px;
+}
+
+.restrictionsSection h4 {
+  margin: 0 0 1rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid #eee;
+  color: #2c3e50;
+}
+
+.restrictionsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 1rem;
+}
+
+.restrictionItem {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.8rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.restrictionItem i {
+  color: #e74c3c;
+}
+
+.mapsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.mapOption {
+  flex: 1;
+  min-width: 280px;
+  display: grid;
+  gap: 1rem;
+}
+
+.mapButtonPrimary,
+.mapButtonSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  min-height: 60px;
+  padding: 1rem 0.9rem;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mapButtonPrimary {
+  background: #f1c40f;
+  color: #000;
+}
+
+.mapButtonSecondary {
+  background: #3498db;
+  color: #fff;
+}
+
+.mapButtonPrimary:hover,
+.mapButtonSecondary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.18);
+}
+
+.newReviewForm {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.newReviewForm h4 {
+  margin: 0 0 1rem;
+  color: #2c3e50;
+}
+
+.ratingStars {
+  display: flex;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.ratingStar {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #ddd;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.ratingStar:hover {
+  transform: translateY(-1px);
+}
+
+.ratingStarSelected {
+  color: #f1c40f;
+}
+
+.formGroup textarea {
+  width: 100%;
+  min-height: 110px;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font: inherit;
+  resize: vertical;
+}
+
+.submitButton {
+  margin-top: 1rem;
+  padding: 0.85rem 1.4rem;
+  border: 0;
+  border-radius: 8px;
+  background: #2ecc71;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.submitButton:hover {
+  background: #27ae60;
+}
+
+.loginMessage {
+  margin: 0 0 1.5rem;
+  padding: 1rem;
+  border-left: 4px solid #1976d2;
+  border-radius: 8px;
+  background: #e3f2fd;
+  color: #1976d2;
+  text-align: center;
+  font-weight: 600;
+}
+
+.reviewsList {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.reviewItem {
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.reviewHeader {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 1rem;
+}
+
+.reviewAvatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.reviewUser {
+  flex: 1;
+}
+
+.reviewUser h4 {
+  margin: 0 0 0.35rem;
+}
+
+.reviewRating {
+  display: inline-flex;
+  gap: 0.2rem;
+  color: #f1c40f;
+}
+
+.reviewContent p {
+  margin: 0 0 0.45rem;
+  line-height: 1.6;
+}
+
+.reviewContent small {
+  color: #7f8c8d;
+}
+
+.noReviews {
+  margin: 0;
+  padding: 2rem;
+  color: #7f8c8d;
+  text-align: center;
+  font-style: italic;
+}
+
+.adCard {
+  margin-top: 2rem;
+  padding: 1.6rem;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #fff1aa 0%, #ffd24d 45%, #fff7dc 100%);
+  box-shadow: 0 10px 24px rgba(28, 34, 44, 0.1);
+}
+
+.adTitle {
+  margin: 0;
+  color: #2c2412;
+}
+
+.adSubtitle {
+  margin: 0.45rem 0 0.8rem;
+  color: #5b512c;
+  font-weight: 600;
+}
+
+.adExamples {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: #4d421e;
+}
+
+.fullscreenGallery {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.galleryContent {
+  position: relative;
+  width: min(92vw, 1100px);
+  max-height: 82vh;
+}
+
+.fullscreenImage {
+  max-width: 100%;
+  max-height: 82vh;
+  border-radius: 12px;
+  object-fit: contain;
+}
+
+.closeGallery {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  z-index: 2;
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.galleryNav {
+  position: absolute;
+  inset: 50% 20px auto;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+
+.galleryNavButton {
+  display: inline-grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.imageCounter {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-weight: 700;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1150;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modalContent {
+  position: relative;
+  width: min(100%, 620px);
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 25px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.largeModal {
+  width: min(100%, 900px);
+}
+
+.modalContent h3 {
+  margin: 0 0 1rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 2px solid #dee2e6;
+  color: #007bff;
+}
+
+.closeModalButton {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 999px;
+  background: #f3f5f8;
+  color: #445169;
+  cursor: pointer;
+  font-size: 1.05rem;
+}
+
+.modalBody p {
+  margin: 0.75rem 0;
+  line-height: 1.55;
+}
+
+.shareOptions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.shareOption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 120px;
+  padding: 1rem;
+  border: 0;
+  border-radius: 10px;
+  background: #f8f9fa;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.shareOption:hover {
+  background: #e9ecef;
+}
+
+.shareOption i {
+  font-size: 2rem;
+}
+
+.capacitySummary {
+  margin-bottom: 1.4rem;
+  padding: 15px;
+  border-radius: 10px;
+  background: #f8f9fa;
+}
+
+.capacitySummary p {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0.55rem 0;
+  padding: 0.7rem 0.75rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.modalSubheading {
+  margin: 0 0 1rem;
+  color: #2c3e50;
+}
+
+.vehicleCapacities {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.vehicleCapacityItem {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.vehicleIcon {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #e9f7fe;
+  color: #3498db;
+  flex-shrink: 0;
+}
+
+.vehicleIcon i {
+  font-size: 1.6rem;
+}
+
+.vehicleInfo {
+  flex: 1;
+}
+
+.vehicleName {
+  margin-bottom: 0.25rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.vehicleCapacity {
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: #3a74e0;
+}
+
+.vehicleReservable {
+  margin-top: 0.25rem;
+  color: #6a3ce7;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.scheduleTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.scheduleTable th,
+.scheduleTable td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.scheduleTable th {
+  width: 32%;
+  color: #495057;
+}
+
+.scheduleAlwaysOpen {
+  text-align: center;
+  font-weight: 700;
+}
+
+.mapFrame {
+  width: 100%;
+  height: 450px;
+  border: 0;
+  border-radius: 10px;
+}
+
+.notification {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 1250;
+  max-width: min(92vw, 420px);
+  padding: 0.95rem 1.1rem;
+  border-radius: 1rem;
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 20px 36px rgba(0, 0, 0, 0.18);
+}
+
+.notificationSuccess {
+  background: #00ac56;
+}
+
+.notificationError {
+  background: #d64545;
+}
+
+@media (max-width: 980px) {
+  .infoButtons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .mapsContainer,
+  .restrictionsContainer {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .galleryFive,
+  .galleryFour,
+  .galleryThree {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 180px);
+  }
+
+  .galleryFive .galleryItem:first-child,
+  .galleryThree .galleryItem:first-child {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  .feesGrid,
+  .vehicleCapacities,
+  .servicesGrid,
+  .restrictionsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .shareOptions {
+    grid-template-columns: 1fr;
+  }
+
+  .galleryNav {
+    inset-inline: 12px;
+  }
+}
+
+@media (max-width: 560px) {
+  .page {
+    padding-top: 0.8rem;
+  }
+
+  .container {
+    border-radius: 0;
+    padding: 0.9rem;
+  }
+
+  .infoButtons {
+    grid-template-columns: 1fr;
+  }
+
+  .parkingTitle {
+    font-size: 1.7rem;
+  }
+
+  .galleryOne {
+    grid-template-rows: 280px;
+  }
+
+  .galleryTwo,
+  .galleryThree,
+  .galleryFour,
+  .galleryFive {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 170px);
+  }
+
+  .galleryItem {
+    min-height: 170px;
+  }
+
+  .reviewHeader {
+    align-items: flex-start;
+  }
+}

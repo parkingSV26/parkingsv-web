@@ -1,0 +1,23 @@
+.inputShell {
+  border-radius: 12px;
+  transition: box-shadow 0.2s ease;
+}
+
+.inputShellError {
+  box-shadow: 0 0 0 3px rgba(217, 48, 37, 0.12);
+}
+
+.fieldError {
+  margin: -0.25rem 0 0;
+  color: #d93025;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.visibilityButton {
+  border: none;
+  background: transparent;
+  color: #5f7490;
+  cursor: pointer;
+  padding: 0;
+}

@@ -1,0 +1,29 @@
+const FALLBACK_REDIRECT = "/parqueos";
+
+export function sanitizeAppRedirect(redirectValue: string | null | undefined) {
+  const redirect = (redirectValue ?? "").trim();
+
+  // Cerramos puertas a redirects vacíos, externos o con saltos de línea sospechosos.
+  if (!redirect || /[\r\n]/.test(redirect)) {
+    return FALLBACK_REDIRECT;
+  }
+
+  if (/^https?:\/\//i.test(redirect) || redirect.startsWith("//")) {
+    return FALLBACK_REDIRECT;
+  }
+
+  if (redirect.startsWith("/")) {
+    return redirect;
+  }
+
+  // Permitimos rutas internas simples aunque lleguen sin slash inicial.
+  if (/^[A-Za-z0-9/_?=&%-]+$/.test(redirect)) {
+    return `/${redirect.replace(/^\/+/, "")}`;
+  }
+
+  return FALLBACK_REDIRECT;
+}
+
+export function getDefaultRedirect() {
+  return FALLBACK_REDIRECT;
+}

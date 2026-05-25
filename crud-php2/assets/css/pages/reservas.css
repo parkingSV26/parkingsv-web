@@ -1,0 +1,154 @@
+.reservations-page,
+.reservation-confirmation {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 2rem;
+}
+
+.reservations-hero,
+.confirmation-layout {
+    margin-bottom: 1.5rem;
+}
+
+.reservations-hero h1,
+.qr-card h2,
+.confirmation-details h1 {
+    margin-bottom: 0.5rem;
+}
+
+.reservations-hero p,
+.confirmation-details p,
+.qr-card p {
+    color: var(--text-muted);
+}
+
+.reservations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.25rem;
+}
+
+.reservation-card,
+.confirmation-card,
+.qr-card,
+.reservation-empty {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+}
+
+.reservation-card__image,
+.confirmation-image {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+}
+
+.reservation-card__content,
+.confirmation-details,
+.qr-card,
+.reservation-empty {
+    padding: 1.25rem;
+}
+
+.reservation-card__top {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.reservation-card__location {
+    margin-bottom: 0.75rem;
+    color: var(--text-muted);
+}
+
+.reservation-card__actions,
+.confirmation-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.reservation-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.1rem;
+    border-radius: 999px;
+    background: var(--color-primary);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.reservation-btn.secondary {
+    background: var(--color-dark);
+}
+
+.reservation-status,
+.confirmation-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.confirmation-badge,
+.status-reservado {
+    background: #e7f4ea;
+    color: #1f7a39;
+}
+
+.status-usado {
+    background: #eaf2ff;
+    color: #0c6ff9;
+}
+
+.status-cancelado,
+.status-sancionado {
+    background: #fff1f1;
+    color: #c62828;
+}
+
+.confirmation-layout {
+    display: grid;
+    grid-template-columns: 1.4fr 0.8fr;
+    gap: 1.25rem;
+    align-items: start;
+}
+
+.confirmation-card {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+}
+
+.reservation-qrcode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 260px;
+}
+
+.reservation-empty {
+    text-align: center;
+}
+
+.reservation-empty i {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 900px) {
+    .confirmation-layout,
+    .confirmation-card {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,74 @@
+{
+  "brand": {
+    "name": "Parking SV"
+  },
+  "nav": {
+    "home": "Inicio",
+    "menuOpen": "Abrir menú",
+    "menuClose": "Cerrar menú"
+  },
+  "hero": {
+    "eyebrow": "Parking SV",
+    "title": "Todos nos enfrentamos a esta problemática.",
+    "description": "En El Salvador y en el mundo, cada día perdemos tiempo, dinero y energía buscando parqueo.",
+    "descriptionSecondary": "Parking SV nace como una solución rápida y confiable para encontrar espacios disponibles, sin estrés ni pérdidas de tiempo.",
+    "primaryCta": "Empezar ya",
+    "secondaryCta": "Publicar mi espacio ya",
+    "badge": "Inicio minimalista",
+    "imageAlt": "Ilustración de la problemática de parqueo"
+  },
+  "features": {
+    "sections": [
+      {
+        "id": "solucion1",
+        "title": "Parking SV tiene la solución",
+        "description": [
+          "Parking SV conecta personas que necesitan parqueo con quienes tienen un espacio disponible.",
+          "Sin complicaciones, sin perder tiempo, sin estrés."
+        ],
+        "bullets": [
+          "Publica tu lote o empieza a ganar.",
+          "Encontra un parqueo cerca, confiable y en minutos."
+        ],
+        "image": "/parkingsv/solution-card.png",
+        "alt": "Solución Parking SV"
+      },
+      {
+        "id": "solucion2",
+        "title": "¿Cómo funciona?",
+        "description": [
+          "Explora la lista de parqueos en tiempo real.",
+          "Encuentra parqueos cerca de tu destino y revisa la información del espacio."
+        ],
+        "bullets": [
+          "Selecciona un parqueo.",
+          "Mira el mapa y sigue la ruta."
+        ],
+        "image": "/parkingsv/process-card.png",
+        "alt": "Proceso de uso de Parking SV"
+      },
+      {
+        "id": "solucion3",
+        "title": "¿Por qué Parking SV?",
+        "description": [
+          "Hecha por salvadoreños, para salvadoreños.",
+          "Sin comisiones, sin apps complicadas."
+        ],
+        "bullets": [
+          "Comunidad verificada.",
+          "Ahorro de tiempo, combustible y dinero."
+        ],
+        "image": "/parkingsv/value-card.png",
+        "alt": "Por qué elegir Parking SV"
+      }
+    ]
+  },
+  "footer": {
+    "adEyebrow": "Monetización MVP",
+    "adTitle": "Anúnciate aquí",
+    "adDescription": "Ideal para carwash, talleres, restaurantes cercanos, turismo local y servicios pensados para conductores.",
+    "adCta": "Reservar espacio",
+    "socialTitle": "Síguenos en nuestras redes sociales!",
+    "copyright": "Copyright © 2026 Parking SV"
+  }
+}

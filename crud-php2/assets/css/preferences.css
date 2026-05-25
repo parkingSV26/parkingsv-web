@@ -1,0 +1,188 @@
+html[data-font-size="small"] {
+  font-size: 14px;
+}
+
+html[data-font-size="medium"] {
+  font-size: 16px;
+}
+
+html[data-font-size="large"] {
+  font-size: 18px;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --pref-bg: #0b1220;
+  --pref-surface: #111827;
+  --pref-surface-alt: #1f2937;
+  --pref-border: #334155;
+  --pref-text: #e5e7eb;
+  --pref-muted: #94a3b8;
+  --pref-primary: #60a5fa;
+  --pref-accent: #facc15;
+}
+
+html[data-theme="dark"] body {
+  background: var(--pref-bg);
+  color: var(--pref-text);
+}
+
+html[data-theme="dark"] .navbar,
+html[data-theme="dark"] .footer,
+html[data-theme="dark"] .navbar-links.show,
+html[data-theme="dark"] .navbar-links.show > li:not(.user-dropdown),
+html[data-theme="dark"] .user-dropdown-menu {
+  background: var(--pref-surface) !important;
+  box-shadow: 0 14px 34px rgba(2, 6, 23, 0.45);
+}
+
+html[data-theme="dark"] .navbar .logo,
+html[data-theme="dark"] .navbar .name,
+html[data-theme="dark"] .navbar-links > li > a,
+html[data-theme="dark"] .footer-logo-text,
+html[data-theme="dark"] .footer-copy,
+html[data-theme="dark"] .footer-social-title,
+html[data-theme="dark"] .user-dropdown-menu li a {
+  color: var(--pref-text) !important;
+}
+
+html[data-theme="dark"] .navbar-toggle span {
+  background: var(--pref-text);
+}
+
+html[data-theme="dark"] .navbar-links > li > a.active,
+html[data-theme="dark"] .navbar-links.show > li > a.active {
+  border-color: var(--pref-accent);
+  background: rgba(250, 204, 21, 0.12);
+}
+
+html[data-theme="dark"] .site-ad-slot,
+html[data-theme="dark"] .inline-ad-slot,
+html[data-theme="dark"] .session-modal-content,
+html[data-theme="dark"] .parking-card,
+html[data-theme="dark"] .folder-editor-card,
+html[data-theme="dark"] .folder-hero,
+html[data-theme="dark"] .filters-container,
+html[data-theme="dark"] .search-bar,
+html[data-theme="dark"] .share-modal-content,
+html[data-theme="dark"] .no-folders-container,
+html[data-theme="dark"] .no-favorites-container,
+html[data-theme="dark"] .folder-empty-state,
+html[data-theme="dark"] .empty-results,
+html[data-theme="dark"] .settings-shell__panel,
+html[data-theme="dark"] .settings-card,
+html[data-theme="dark"] .settings-message {
+  background: var(--pref-surface) !important;
+  color: var(--pref-text);
+  border-color: var(--pref-border) !important;
+  box-shadow: 0 18px 38px rgba(2, 6, 23, 0.35);
+}
+
+html[data-theme="dark"] .card-content,
+html[data-theme="dark"] .folder-parking-option,
+html[data-theme="dark"] .language-option,
+html[data-theme="dark"] .settings-chip,
+html[data-theme="dark"] .settings-option,
+html[data-theme="dark"] .folder-search-bar,
+html[data-theme="dark"] .folder-selection-summary {
+  background: var(--pref-surface-alt) !important;
+  color: var(--pref-text);
+  border-color: var(--pref-border) !important;
+}
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] .search-bar input,
+html[data-theme="dark"] .folder-search-bar input,
+html[data-theme="dark"] .share-url {
+  background: transparent;
+  color: var(--pref-text);
+  border-color: var(--pref-border);
+}
+
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+  color: var(--pref-muted);
+}
+
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] h5,
+html[data-theme="dark"] h6,
+html[data-theme="dark"] strong,
+html[data-theme="dark"] label,
+html[data-theme="dark"] .section-title,
+html[data-theme="dark"] .page-title,
+html[data-theme="dark"] .card-content h3,
+html[data-theme="dark"] .site-ad-slot h3,
+html[data-theme="dark"] .inline-ad-slot h3 {
+  color: var(--pref-text) !important;
+}
+
+html[data-theme="dark"] p,
+html[data-theme="dark"] li,
+html[data-theme="dark"] .page-intro,
+html[data-theme="dark"] .location,
+html[data-theme="dark"] .schedule,
+html[data-theme="dark"] .schedule-text,
+html[data-theme="dark"] .no-folders-description,
+html[data-theme="dark"] .no-favorites-description,
+html[data-theme="dark"] .folder-helper-text,
+html[data-theme="dark"] .folder-view-description,
+html[data-theme="dark"] .folder-editor-description {
+  color: var(--pref-muted);
+}
+
+html[data-theme="dark"] a {
+  color: #93c5fd;
+}
+
+html[data-theme="dark"] .site-ad-slot__cta,
+html[data-theme="dark"] .inline-ad-slot__cta,
+html[data-theme="dark"] .btn-primary,
+html[data-theme="dark"] .folder-action-btn,
+html[data-theme="dark"] .folder-empty-cta,
+html[data-theme="dark"] .btn-copy,
+html[data-theme="dark"] #create-folder-confirm {
+  background: var(--pref-primary) !important;
+  color: #08111f !important;
+}
+
+html[data-theme="dark"] .search-submit-btn,
+html[data-theme="dark"] .session-btn-primary {
+  background: var(--pref-accent) !important;
+  color: #0f172a !important;
+  border-color: var(--pref-accent) !important;
+}
+
+html[data-theme="dark"] .filter-btn,
+html[data-theme="dark"] .btn-secondary,
+html[data-theme="dark"] .folder-action-btn.secondary,
+html[data-theme="dark"] .share-modal-content .btn.btn-secondary {
+  background: var(--pref-surface-alt) !important;
+  color: var(--pref-text) !important;
+  border: 1px solid var(--pref-border) !important;
+}
+
+html[data-theme="dark"] .new-badge,
+html[data-theme="dark"] .rating {
+  color: #0f172a !important;
+}
+
+html[data-theme="dark"] .session-modal,
+html[data-theme="dark"] .share-modal,
+html[data-theme="dark"] .modal {
+  background: rgba(2, 6, 23, 0.72);
+}
+
+html[data-theme="dark"] .floating-notification {
+  background: #1d4ed8;
+  color: #eff6ff;
+}
+
+html[data-theme="dark"] .universal-back-text {
+  color: var(--pref-text);
+}

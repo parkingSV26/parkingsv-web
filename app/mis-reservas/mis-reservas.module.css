@@ -1,0 +1,251 @@
+.page {
+  min-height: calc(100vh - 70px);
+}
+
+.shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 2rem;
+}
+
+.hero {
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+  margin: 0 0 0.5rem;
+}
+
+.hero p,
+.qrDetails p {
+  color: var(--text-muted);
+}
+
+.inlineAd {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+  padding: 1.35rem;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, #fff6c5 0%, #ffe07c 55%, #fff9e8 100%);
+  box-shadow: var(--shadow-md);
+}
+
+.inlineAdContent {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.inlineAdContent h2 {
+  margin: 0;
+}
+
+.inlineAdEyebrow {
+  color: var(--color-primary);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.inlineAdLink,
+.primaryAction,
+.secondaryAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.inlineAdLink,
+.primaryAction {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.inlineAdLink {
+  padding: 0.8rem 1.15rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+
+.card,
+.emptyState,
+.modalContent {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.cardImage {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+}
+
+.cardContent,
+.emptyState,
+.qrCard {
+  padding: 1.25rem;
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.cardTop h2 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.location {
+  margin-bottom: 0.75rem;
+  color: var(--text-muted);
+}
+
+.cardContent p {
+  margin: 0.2rem 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.primaryAction,
+.secondaryAction {
+  border: none;
+  cursor: pointer;
+  padding: 0.75rem 1.1rem;
+}
+
+.secondaryAction {
+  background: var(--color-dark);
+  color: #fff;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.statusReservado {
+  background: #e7f4ea;
+  color: #1f7a39;
+}
+
+.statusUsado {
+  background: #eaf2ff;
+  color: #0c6ff9;
+}
+
+.statusCancelado {
+  background: #fff1f1;
+  color: #c62828;
+}
+
+.emptyState {
+  text-align: center;
+}
+
+.emptyState i {
+  font-size: 2.5rem;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.emptyState h2 {
+  margin: 0 0 0.5rem;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.56);
+  padding: 1rem;
+}
+
+.modalContent {
+  width: min(100%, 820px);
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.9rem;
+  z-index: 1;
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.qrCard {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 1.2rem;
+  align-items: center;
+}
+
+.qrVisual {
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qrPattern {
+  width: min(100%, 240px);
+  aspect-ratio: 1;
+  border-radius: 1rem;
+  background:
+    linear-gradient(90deg, #111 12%, transparent 12%, transparent 24%, #111 24%, #111 36%, transparent 36%, transparent 48%, #111 48%, #111 60%, transparent 60%, transparent 72%, #111 72%, #111 84%, transparent 84%),
+    linear-gradient(#111 12%, transparent 12%, transparent 24%, #111 24%, #111 36%, transparent 36%, transparent 48%, #111 48%, #111 60%, transparent 60%, transparent 72%, #111 72%, #111 84%, transparent 84%),
+    #fff;
+  background-size: 32px 32px;
+  border: 12px solid #fff;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08), 0 8px 26px rgba(15, 23, 42, 0.18);
+}
+
+.qrDetails h3 {
+  margin: 0 0 0.75rem;
+}
+
+@media (max-width: 900px) {
+  .qrCard {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .inlineAd {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
