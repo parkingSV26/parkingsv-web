@@ -8,6 +8,7 @@ import type { RegisterFormState } from "@/app/register/register-form-state";
 
 type RegisterValues = {
   confirm_password: string;
+  date_of_birth: string;
   email: string;
   full_name: string;
   password: string;
@@ -18,6 +19,7 @@ type RegisterValues = {
 const initialState: RegisterFormState = {
   errors: {},
   values: {
+    date_of_birth: "",
     email: "",
     full_name: "",
     terms_accepted: false,
@@ -26,28 +28,16 @@ const initialState: RegisterFormState = {
 };
 
 function getPasswordStrength(password: string) {
-  // La barra de fuerza es orientativa; no bloquea el envío por sí sola.
   let strength = 0;
-
   if (password.length >= 8) strength += 1;
   if (password.length >= 12) strength += 1;
   if (/[a-z]/.test(password)) strength += 1;
   if (/[A-Z]/.test(password)) strength += 1;
   if (/[0-9]/.test(password)) strength += 1;
   if (/[^a-zA-Z0-9]/.test(password)) strength += 1;
-
-  if (password.length === 0) {
-    return "";
-  }
-
-  if (strength <= 2) {
-    return "weak";
-  }
-
-  if (strength <= 4) {
-    return "medium";
-  }
-
+  if (password.length === 0) return "";
+  if (strength <= 2) return "weak";
+  if (strength <= 4) return "medium";
   return "strong";
 }
 
@@ -57,7 +47,7 @@ function RegisterSubmitButton() {
   return (
     <button type="submit" className="btn-register" id="submitBtn" disabled={pending}>
       <span className="btn-text" style={{ display: pending ? "none" : "inline" }}>
-        orear cuenta
+        Crear cuenta
       </span>
       <span className="btn-loader" style={{ display: pending ? "flex" : "none" }}>
         <i className="fa-solid fa-spinner fa-spin" aria-hidden="true" />
@@ -68,8 +58,7 @@ function RegisterSubmitButton() {
 
 export default function RegisterForm() {
   const [state, formAction] = useActionState(registerAction, initialState);
-  // Forzamos un remount controlado cuando la action devuelve valores nuevos para resetear campos sensibles.
-  const formKey = `${state.values.full_name}|${state.values.email}|${state.values.user_type}|${state.values.terms_accepted}`;
+  const formKey = `${state.values.full_name}|${state.values.date_of_birth}|${state.values.email}|${state.values.user_type}|${state.values.terms_accepted}`;
 
   return <RegisterFormFields key={formKey} state={state} formAction={formAction} />;
 }
@@ -83,6 +72,7 @@ function RegisterFormFields({
 }) {
   const [values, setValues] = useState<RegisterValues>({
     confirm_password: "",
+    date_of_birth: state.values.date_of_birth,
     email: state.values.email,
     full_name: state.values.full_name,
     password: "",
@@ -95,7 +85,6 @@ function RegisterFormFields({
   const passwordStrength = getPasswordStrength(values.password);
 
   function setField<K extends keyof RegisterValues>(field: K, value: RegisterValues[K]) {
-    // Un helper pequeño mantiene los cambios de inputs consistentes en todo el formulario.
     setValues((current) => ({
       ...current,
       [field]: value,
@@ -127,6 +116,24 @@ function RegisterFormFields({
               placeholder="Juan Perez"
               value={values.full_name}
               onChange={(event) => setField("full_name", event.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="date_of_birth" className="form-label">
+            <i className="fa-solid fa-cake-candles" aria-hidden="true" />
+            Fecha de nacimiento
+          </label>
+          <div className="input-wrapper">
+            <i className="fa-solid fa-calendar-days input-icon" aria-hidden="true" />
+            <input
+              type="date"
+              id="date_of_birth"
+              name="date_of_birth"
+              className="form-input"
+              value={values.date_of_birth}
+              onChange={(event) => setField("date_of_birth", event.target.value)}
             />
           </div>
         </div>
@@ -170,16 +177,16 @@ function RegisterFormFields({
         <div className="form-group">
           <label htmlFor="email" className="form-label">
             <i className="fa-solid fa-envelope" aria-hidden="true" />
-            oorreo electrónico
+            Correo electrónico
           </label>
           <div className="input-wrapper">
             <i className="fa-solid fa-envelope input-icon" aria-hidden="true" />
             <input
-              type="text"
+              type="email"
               id="email"
               name="email"
               className="form-input"
-              placeholder="Escribe cualquier dato de prueba"
+              placeholder="tu@correo.com"
               value={values.email}
               onChange={(event) => setField("email", event.target.value)}
             />
@@ -189,7 +196,7 @@ function RegisterFormFields({
         <div className="form-group">
           <label htmlFor="password" className="form-label">
             <i className="fa-solid fa-lock" aria-hidden="true" />
-            oontrasena
+            Contrasena
           </label>
           <div className="input-wrapper">
             <i className="fa-solid fa-lock input-icon" aria-hidden="true" />
@@ -209,10 +216,7 @@ function RegisterFormFields({
               aria-label={passwordVisible ? "Ocultar contraseña" : "Mostrar contraseña"}
               onClick={() => setPasswordVisible((current) => !current)}
             >
-              <i
-                className={`fa-solid ${passwordVisible ? "fa-eye-slash" : "fa-eye"}`}
-                aria-hidden="true"
-              />
+              <i className={`fa-solid ${passwordVisible ? "fa-eye-slash" : "fa-eye"}`} aria-hidden="true" />
             </button>
           </div>
           <div className={`password-strength ${passwordStrength}`} id="passwordStrength" />
@@ -221,7 +225,7 @@ function RegisterFormFields({
         <div className="form-group">
           <label htmlFor="confirm_password" className="form-label">
             <i className="fa-solid fa-lock" aria-hidden="true" />
-            oonfirmar contraseña
+            Confirmar contraseña
           </label>
           <div className="input-wrapper">
             <i className="fa-solid fa-lock input-icon" aria-hidden="true" />
@@ -241,10 +245,7 @@ function RegisterFormFields({
               aria-label={confirmPasswordVisible ? "Ocultar contraseña" : "Mostrar contraseña"}
               onClick={() => setConfirmPasswordVisible((current) => !current)}
             >
-              <i
-                className={`fa-solid ${confirmPasswordVisible ? "fa-eye-slash" : "fa-eye"}`}
-                aria-hidden="true"
-              />
+              <i className={`fa-solid ${confirmPasswordVisible ? "fa-eye-slash" : "fa-eye"}`} aria-hidden="true" />
             </button>
           </div>
         </div>

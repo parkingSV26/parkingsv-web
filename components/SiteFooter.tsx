@@ -1,7 +1,11 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element */
+
 import type { CSSProperties } from "react";
 import Link from "next/link";
+import { siteDictionaries } from "@/app/settings/_lib/preferences";
+import { useSitePreferences } from "@/components/useSitePreferences";
 
 const socialLinks = [
   {
@@ -25,6 +29,9 @@ const socialLinks = [
 ] as const;
 
 export function SiteFooter() {
+  const preferences = useSitePreferences();
+  const dictionary = siteDictionaries[preferences.language];
+
   return (
     <footer className="footer">
       <div className="footer-content">
@@ -33,20 +40,20 @@ export function SiteFooter() {
             <Link href="/#problematica" className="footer-brand-link">
               <img
                 src="/parkingsv/logo-parking-sv.png"
-                alt="Logo Parking SV"
+                alt={dictionary.brandName}
                 className="footer-logo-img"
                 width={60}
                 height={60}
               />
-              <span className="footer-logo-text">Parking SV</span>
+              <span className="footer-logo-text">{dictionary.brandName}</span>
             </Link>
           </div>
-          <div className="footer-copy">Copyright &copy; 2024 - 2026 Parking SV</div>
+          <div className="footer-copy">{dictionary.footerCopyright}</div>
         </div>
 
         <div className="footer-center">
           <div className="footer-contact-row">
-            <p className="footer-social-title">Contact Us</p>
+            <p className="footer-social-title">{dictionary.footerFollow}</p>
             <div className="socials-container">
               {/* Renderizamos redes desde un arreglo para mantener icono, color y enlace en una sola fuente. */}
               {socialLinks.map((social) => (

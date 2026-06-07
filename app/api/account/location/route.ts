@@ -1,4 +1,4 @@
-import { db } from "@/app/lib/db";
+import { createSupabaseAdminClient } from "@/src/lib/supabase/admin";
 import { getSessionUser } from "@/app/lib/auth/session";
 
 export const dynamic = "force-dynamic";
@@ -11,7 +11,6 @@ export async function POST(request: Request) {
   }
 
   try {
-    // El payload llega desde cliente, así que lo normalizamos antes de tocar la base.
     const payload = (await request.json()) as {
       latitude?: unknown;
       longitude?: unknown;
@@ -21,14 +20,18 @@ export async function POST(request: Request) {
     const longitude = Number(payload.longitude);
 
     if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) {
-      return Response.json({ error: "Datos de ubicación invalidos." }, { status: 400 });
+      return Response.json({ error: "Datos de ubicacion invalidos." }, { status: 400 });
     }
 
-    await db.execute("UPDATE users SET latitude = ?, longitude = ? WHERE id = ?", [
-      latitude,
-      longitude,
-      user.id,
-    ]);
+    const admin = createSupabaseAdminClient();
+    const { error } = await admin
+      .from("users")
+      .update({ latitude, longitude })
+      .eq("id", user.id);
+
+    if (error) {
+      throw error;
+    }
 
     return Response.json({
       locationText: `Lat: ${latitude}, Long: ${longitude}`,
@@ -37,6 +40,6 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Failed to update location.", error);
 
-    return Response.json({ error: "Error al actualizar la ubicación." }, { status: 500 });
+    return Response.json({ error: "Error al actualizar la ubicacion." }, { status: 500 });
   }
 }

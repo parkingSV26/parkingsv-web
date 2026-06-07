@@ -1,43 +1,41 @@
 import "server-only";
 
-import { db, type DatabaseRow } from "@/app/lib/db";
+import type { SessionUser } from "@/app/lib/auth/session";
+import { getPublicUserById } from "@/app/lib/auth/user-profile";
+import { createSupabaseAdminClient } from "@/src/lib/supabase/admin";
+import { formatSupabaseErrorForLog } from "@/src/lib/supabase/errors";
 
 const DEFAULT_AVATAR = "/parkingsv/default-avatar.jpeg";
 const LEGACY_UPLOAD_PREFIX = "/crud-php2/public/uploads/";
 
-type AccountUserRow = DatabaseRow & {
-  email: string;
-  full_name: string;
-  id: number;
-  latitude: number | null;
-  longitude: number | null;
-  phone_number: string | null;
-  profile_picture: string | null;
-  user_type: "customer" | "owner";
-};
-
-type UserVehicleRow = DatabaseRow & {
+type VehicleTypeRow = {
   category_name: string;
   description: string;
   icon: string;
   id: number;
 };
 
-type VehicleOptionRow = DatabaseRow & {
-  category_name: string;
-  description: string;
-  icon: string;
-  id: number;
+type UserVehicleRow = {
+  vehicle_type_id: number;
 };
 
-type UserSpecificationRow = DatabaseRow & {
+type UserSpecificationTypeRow = {
   description: string;
-  has_value: number;
+  has_value: boolean | number | null;
   icon: string;
   id: number;
   name: string;
-  value: string | null;
   value_label: string | null;
+};
+
+type UserSpecificationRow = {
+  specification_type_id: number;
+  value: string | number | null;
+};
+
+type AuthMetadata = {
+  user_specifications?: Record<string, string | null>;
+  vehicle_type_ids?: number[];
 };
 
 export type AccountVehicle = {
@@ -70,84 +68,26 @@ export type AccountPageData = {
   locationText: string;
   specifications: AccountSpecification[];
   user: {
+    dateOfBirth: string | null;
     email: string;
     fullName: string;
     id: number;
     latitude: number | null;
     longitude: number | null;
-    phoneNumber: string;
+    phoneNumber: string | null;
     profilePicture: string;
     userType: "customer" | "owner";
   };
   userVehicles: AccountVehicle[];
 };
 
-const DEMO_VEHICLE_OPTIONS: VehicleOption[] = [
-  {
-    categoryName: "Motocicletas",
-    description: "Scooters, motocicletas estandar y grandes",
-    icon: "motorcycle",
-    id: 1,
-  },
-  {
-    categoryName: "Autos Pequeños",
-    description: "Sedanes compactos, hatchbacks y subcompactos",
-    icon: "car",
-    id: 2,
-  },
-  {
-    categoryName: "Autos Medianos",
-    description: "Sedanes familiares y crossovers pequeños",
-    icon: "car-side",
-    id: 3,
-  },
-  {
-    categoryName: "Autos Grandes",
-    description: "SUV medianas, minivans y sedanes ejecutivos",
-    icon: "car-alt",
-    id: 4,
-  },
-  {
-    categoryName: "Pickups/Furgonetas",
-    description: "Pickups pequeñas o grandes y furgonetas",
-    icon: "truck-pickup",
-    id: 5,
-  },
-  {
-    categoryName: "Vehículos Comerciales",
-    description: "Microbuses y buses pequeños",
-    icon: "bus",
-    id: 6,
-  },
-  {
-    categoryName: "Vehículos Pesados",
-    description: "Camiones de carga liviana y volquetas",
-    icon: "truck",
-    id: 7,
-  },
-  {
-    categoryName: "Trailers/Remolques",
-    description: "Remolques pequeños y semirremolques",
-    icon: "trailer",
-    id: 8,
-  },
-  {
-    categoryName: "Bicicletas",
-    description: "Bicis, triciclos y uniciclos",
-    icon: "bicycle",
-    id: 9,
-  },
-];
-
-const DEMO_SPECIFICATIONS: AccountSpecification[] = [
+const FALLBACK_SPECIFICATION_TYPES: Array<Omit<AccountSpecification, "isActive" | "value">> = [
   {
     description: "Personas con movilidad reducida",
     hasValue: false,
     icon: "wheelchair",
     id: 1,
-    isActive: false,
     name: "Discapacitad@ a bordo",
-    value: "",
     valueLabel: null,
   },
   {
@@ -155,9 +95,7 @@ const DEMO_SPECIFICATIONS: AccountSpecification[] = [
     hasValue: false,
     icon: "taxi",
     id: 2,
-    isActive: false,
     name: "Conductor/a de Taxi",
-    value: "",
     valueLabel: null,
   },
   {
@@ -165,9 +103,7 @@ const DEMO_SPECIFICATIONS: AccountSpecification[] = [
     hasValue: false,
     icon: "person-pregnant",
     id: 3,
-    isActive: false,
     name: "Futura mama a bordo",
-    value: "",
     valueLabel: null,
   },
   {
@@ -175,29 +111,23 @@ const DEMO_SPECIFICATIONS: AccountSpecification[] = [
     hasValue: false,
     icon: "paw",
     id: 4,
-    isActive: false,
     name: "Mascotas a bordo",
-    value: "",
     valueLabel: null,
   },
   {
-    description: "Vehículo con motorizacion eléctrica",
+    description: "Vehiculo con motorizacion electrica",
     hasValue: false,
     icon: "charging-station",
     id: 5,
-    isActive: false,
-    name: "Vehículo eléctrico",
-    value: "",
+    name: "Vehiculo electrico",
     valueLabel: null,
   },
   {
-    description: "Altura máxima del vehículo",
+    description: "Altura maxima del vehiculo",
     hasValue: true,
     icon: "ruler-vertical",
     id: 6,
-    isActive: false,
-    name: "Altura del vehículo",
-    value: "",
+    name: "Altura del vehiculo",
     valueLabel: "metros",
   },
 ];
@@ -218,7 +148,7 @@ export function resolveAccountProfilePicture(profilePicture: string | null) {
   return profilePicture;
 }
 
-function mapVehicle(vehicle: UserVehicleRow | VehicleOptionRow): AccountVehicle {
+function mapVehicle(vehicle: VehicleTypeRow): AccountVehicle {
   return {
     categoryName: vehicle.category_name,
     description: vehicle.description,
@@ -227,142 +157,191 @@ function mapVehicle(vehicle: UserVehicleRow | VehicleOptionRow): AccountVehicle 
   };
 }
 
-function mapSpecification(specification: UserSpecificationRow): AccountSpecification {
-  const value = specification.value?.trim() ?? "";
-
-  return {
-    description: specification.description,
-    hasValue: Boolean(specification.has_value),
-    icon: specification.icon,
-    id: specification.id,
-    isActive: value.length > 0 || specification.value === "0",
-    name: specification.name,
-    value,
-    valueLabel: specification.value_label,
-  };
-}
-
 function formatLocationText(latitude: number | null, longitude: number | null) {
   if (latitude === null || longitude === null) {
-    return "No has compartido tu ubicación aún";
+    return "No has compartido tu ubicacion aun";
   }
 
   return `Lat: ${latitude}, Long: ${longitude}`;
 }
 
-export async function getAccountPageData(userId: number): Promise<AccountPageData | null> {
-  const [userRows] = await db.execute<AccountUserRow[]>(
-    `
-      SELECT id, full_name, email, phone_number, profile_picture, user_type, latitude, longitude
-      FROM users
-      WHERE id = ?
-      LIMIT 1
-    `,
-    [userId],
+async function getAuthMetadata(authUserId: string) {
+  try {
+    const admin = createSupabaseAdminClient();
+    const { data, error } = await admin.auth.admin.getUserById(authUserId);
+
+    if (error) {
+      throw error;
+    }
+
+    return (data.user?.user_metadata ?? {}) as AuthMetadata;
+  } catch (error) {
+    console.warn("Failed to load auth metadata.", formatSupabaseErrorForLog(error));
+    return {};
+  }
+}
+
+async function getVehicleOptions() {
+  try {
+    const admin = createSupabaseAdminClient();
+    const { data, error } = await admin
+      .from("vehicle_types")
+      .select("id, category_name, icon, description")
+      .order("id", { ascending: true });
+
+    if (error) {
+      throw error;
+    }
+
+    return ((data ?? []) as VehicleTypeRow[]).map(mapVehicle);
+  } catch (error) {
+    console.warn("Failed to load vehicle options.", formatSupabaseErrorForLog(error));
+    return [];
+  }
+}
+
+async function getSelectedVehicleIds(userId: number, metadata: AuthMetadata) {
+  const admin = createSupabaseAdminClient();
+
+  try {
+    const { data, error } = await admin
+      .from("user_vehicles")
+      .select("vehicle_type_id")
+      .eq("user_id", userId);
+
+    if (error) {
+      throw error;
+    }
+
+    const ids = ((data ?? []) as UserVehicleRow[]).map((row) => row.vehicle_type_id);
+    if (ids.length > 0) {
+      return ids;
+    }
+  } catch {
+    // El proyecto actual en Supabase puede no tener estas tablas aún; usamos metadata real como fallback.
+  }
+
+  return Array.isArray(metadata.vehicle_type_ids)
+    ? metadata.vehicle_type_ids.filter((value): value is number => Number.isInteger(value))
+    : [];
+}
+
+async function getSpecificationTemplates() {
+  const admin = createSupabaseAdminClient();
+
+  try {
+    const { data, error } = await admin
+      .from("user_specification_types")
+      .select("id, name, icon, description, has_value, value_label")
+      .order("id", { ascending: true });
+
+    if (error) {
+      throw error;
+    }
+
+    const rows = (data ?? []) as UserSpecificationTypeRow[];
+    if (rows.length > 0) {
+      return rows.map((row) => ({
+        description: row.description,
+        hasValue: Boolean(row.has_value),
+        icon: row.icon,
+        id: row.id,
+        name: row.name,
+        valueLabel: row.value_label,
+      }));
+    }
+  } catch {
+    // Si la tabla aún no existe en Supabase, mantenemos el catálogo funcional con el set esperado del dominio.
+  }
+
+  return FALLBACK_SPECIFICATION_TYPES;
+}
+
+async function getSpecificationValues(userId: number, metadata: AuthMetadata) {
+  const admin = createSupabaseAdminClient();
+
+  try {
+    const { data, error } = await admin
+      .from("user_specifications")
+      .select("specification_type_id, value")
+      .eq("user_id", userId);
+
+    if (error) {
+      throw error;
+    }
+
+    const valueMap = new Map<string, string>();
+    for (const row of (data ?? []) as UserSpecificationRow[]) {
+      const rawValue = row.value;
+
+      if (rawValue === null || rawValue === undefined) {
+        valueMap.set(String(row.specification_type_id), "1");
+        continue;
+      }
+
+      valueMap.set(String(row.specification_type_id), String(rawValue));
+    }
+
+    if (valueMap.size > 0) {
+      return valueMap;
+    }
+  } catch {
+    // Igual que en vehículos, si el esquema aún no está completo usamos metadata del usuario.
+  }
+
+  const metadataValues = metadata.user_specifications ?? {};
+  return new Map(
+    Object.entries(metadataValues)
+      .filter((entry): entry is [string, string | null] => typeof entry[0] === "string")
+      .map(([key, value]) => [key, value ?? "1"]),
   );
+}
 
-  const user = userRows[0];
+export async function getAccountPageData(sessionUser: SessionUser): Promise<AccountPageData | null> {
+  const [publicUser, authMetadata, allVehicleTypes, specificationTemplates] = await Promise.all([
+    getPublicUserById(sessionUser.id),
+    getAuthMetadata(sessionUser.authUserId),
+    getVehicleOptions(),
+    getSpecificationTemplates(),
+  ]);
 
-  if (!user) {
+  if (!publicUser) {
     return null;
   }
 
-  const [vehicleRows, specificationRows, vehicleOptionRows] = await Promise.all([
-    db.execute<UserVehicleRow[]>(
-      `
-        SELECT vt.id, vt.category_name, vt.icon, vt.description
-        FROM user_vehicles uv
-        JOIN vehicle_types vt ON uv.vehicle_type_id = vt.id
-        WHERE uv.user_id = ?
-        ORDER BY vt.id
-      `,
-      [userId],
-    ),
-    db.execute<UserSpecificationRow[]>(
-      `
-        SELECT ust.id, ust.name, ust.icon, ust.has_value, ust.value_label, ust.description, us.value
-        FROM user_specification_types ust
-        LEFT JOIN user_specifications us
-          ON ust.id = us.specification_type_id
-         AND us.user_id = ?
-        ORDER BY ust.id
-      `,
-      [userId],
-    ),
-    db.execute<VehicleOptionRow[]>(
-      `
-        SELECT id, category_name, icon, description
-        FROM vehicle_types
-        ORDER BY id
-      `,
-    ),
+  const [selectedVehicleIds, specificationValues] = await Promise.all([
+    getSelectedVehicleIds(sessionUser.id, authMetadata),
+    getSpecificationValues(sessionUser.id, authMetadata),
   ]);
 
-  const [userVehicles] = vehicleRows;
-  const [specifications] = specificationRows;
-  const [allVehicleTypes] = vehicleOptionRows;
+  const userVehicles = allVehicleTypes.filter((vehicle) => selectedVehicleIds.includes(vehicle.id));
+  const specifications = specificationTemplates.map((template) => {
+    const rawValue = specificationValues.get(String(template.id)) ?? "";
+    const value = rawValue === "1" && !template.hasValue ? "" : rawValue;
+    const isActive = rawValue !== "";
+
+    return {
+      ...template,
+      isActive,
+      value,
+    };
+  });
 
   return {
-    allVehicleTypes: allVehicleTypes.map(mapVehicle),
-    locationText: formatLocationText(user.latitude, user.longitude),
-    specifications: specifications.map(mapSpecification),
+    allVehicleTypes,
+    locationText: formatLocationText(publicUser.latitude, publicUser.longitude),
+    specifications,
     user: {
-      email: user.email,
-      fullName: user.full_name,
-      id: user.id,
-      latitude: user.latitude,
-      longitude: user.longitude,
-      phoneNumber: user.phone_number?.trim() ?? "No registrado",
-      profilePicture: resolveAccountProfilePicture(user.profile_picture),
-      userType: user.user_type,
+      dateOfBirth: publicUser.dateOfBirth,
+      email: publicUser.email,
+      fullName: publicUser.fullName,
+      id: publicUser.id,
+      latitude: publicUser.latitude,
+      longitude: publicUser.longitude,
+      phoneNumber: publicUser.phoneNumber?.trim() ?? null,
+      profilePicture: resolveAccountProfilePicture(publicUser.profilePicture),
+      userType: publicUser.userType,
     },
-    userVehicles: userVehicles.map(mapVehicle),
-  };
-}
-
-export function createMockAccountPageData(user: {
-  email: string;
-  fullName: string;
-  id: number;
-  profilePicture: string;
-  userType: "customer" | "owner";
-}): AccountPageData {
-  const primaryVehicle = user.userType === "owner" ? 5 : 2;
-  const secondaryVehicle = user.userType === "owner" ? 7 : 3;
-
-  return {
-    allVehicleTypes: DEMO_VEHICLE_OPTIONS,
-    locationText: "No has compartido tu ubicación aún",
-    specifications: DEMO_SPECIFICATIONS.map((specification) => {
-      if (specification.id === 4) {
-        return {
-          ...specification,
-          isActive: user.userType === "customer",
-        };
-      }
-
-      if (specification.id === 6) {
-        return {
-          ...specification,
-          isActive: true,
-          value: user.userType === "owner" ? "2.6" : "1.8",
-        };
-      }
-
-      return specification;
-    }),
-    user: {
-      email: user.email,
-      fullName: user.fullName,
-      id: user.id,
-      latitude: null,
-      longitude: null,
-      phoneNumber: "0000-0000",
-      profilePicture: user.profilePicture,
-      userType: user.userType,
-    },
-    userVehicles: DEMO_VEHICLE_OPTIONS.filter((vehicle) =>
-      [primaryVehicle, secondaryVehicle].includes(vehicle.id),
-    ),
+    userVehicles,
   };
 }

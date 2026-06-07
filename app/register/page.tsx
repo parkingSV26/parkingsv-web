@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { redirect } from "next/navigation";
 import RegisterForm from "@/app/register/RegisterForm";
-import { getSessionUser } from "@/app/lib/auth/session";
 import { SiteAdSlot } from "@/components/SiteAdSlot";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -13,13 +11,6 @@ export const metadata: Metadata = {
 };
 
 export default async function RegisterPage() {
-  const currentUser = await getSessionUser();
-
-  // Si ya existe sesión, evitamos que el usuario vuelva a pasar por el formulario de alta.
-  if (currentUser) {
-    redirect("/mi-cuenta");
-  }
-
   return (
     <>
       <SiteHeader activePage="none" />

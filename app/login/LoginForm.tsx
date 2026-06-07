@@ -21,7 +21,6 @@ type LoginFormProps = {
 };
 
 export default function LoginForm({ redirectTarget }: LoginFormProps) {
-  // useActionState nos deja conservar el último intento y mostrar errores sin otra capa de estado manual.
   const [state, formAction, pending] = useActionState(loginAction, {
     ...initialState,
     redirectTarget,
@@ -34,7 +33,6 @@ export default function LoginForm({ redirectTarget }: LoginFormProps) {
     <form action={formAction} className="login-form">
       <input type="hidden" name="redirect" value={redirectTarget} />
 
-      {/* El alert general aparece cuando las credenciales fallan o la action devuelve un error global. */}
       {state.errorMessage ? (
         <div className="login-alert">
           <i className="fa-solid fa-circle-exclamation" aria-hidden="true" />
@@ -45,9 +43,7 @@ export default function LoginForm({ redirectTarget }: LoginFormProps) {
       <label className="login-label" htmlFor="login-email">
         Correo electronico
       </label>
-      <div
-        className={`${styles.inputShell} ${state.fieldErrors.email ? styles.inputShellError : ""}`}
-      >
+      <div className={`${styles.inputShell} ${state.fieldErrors.email ? styles.inputShellError : ""}`}>
         <div className="login-input">
           <i className="fa-solid fa-envelope" aria-hidden="true" />
           <input
@@ -74,9 +70,7 @@ export default function LoginForm({ redirectTarget }: LoginFormProps) {
       <label className="login-label" htmlFor="login-password">
         Contrasena
       </label>
-      <div
-        className={`${styles.inputShell} ${state.fieldErrors.password ? styles.inputShellError : ""}`}
-      >
+      <div className={`${styles.inputShell} ${state.fieldErrors.password ? styles.inputShellError : ""}`}>
         <div className="login-input">
           <i className="fa-solid fa-lock" aria-hidden="true" />
           <input

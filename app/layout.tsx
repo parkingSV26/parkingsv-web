@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import PreferencesBridge from "@/app/configuracion/PreferencesBridge";
+import SettingsBridge from "@/app/settings/SettingsBridge";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -37,7 +37,7 @@ export default function RootLayout({
           <span className="site-glow-shape site-glow-shape-bottom" />
         </div>
         <div className="site-app-shell">
-          <PreferencesBridge />
+          <SettingsBridge />
           {children}
         </div>
       </body>

@@ -5,7 +5,9 @@ import { useEffect, useState, type MouseEvent } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { logoutAction } from "@/app/lib/auth/actions";
+import { siteDictionaries, type SiteDictionary } from "@/app/settings/_lib/preferences";
 import { useSessionUser } from "@/components/useSessionUser";
+import { useSitePreferences } from "@/components/useSitePreferences";
 
 type SignupUserType = "" | "customer" | "owner";
 type ActivePage = "home" | "parkings" | "about" | "none";
@@ -16,7 +18,7 @@ type SiteHeaderProps = {
 
 type NavItem = {
   href: string;
-  label: string;
+  labelKey: keyof SiteDictionary;
   className: string;
   iconClass: string;
   icon: string;
@@ -26,7 +28,7 @@ type NavItem = {
 const navItems: NavItem[] = [
   {
     href: "/#problematica",
-    label: "Inicio",
+    labelKey: "navHome",
     className: "inicio-link",
     iconClass: "inicio-icon",
     icon: "/parkingsv/home-icon.png",
@@ -34,7 +36,7 @@ const navItems: NavItem[] = [
   },
   {
     href: "/parqueos",
-    label: "Parqueos",
+    labelKey: "navParkings",
     className: "parqueos-link",
     iconClass: "parqueos-icon",
     icon: "/parkingsv/parkings-icon.png",
@@ -42,7 +44,7 @@ const navItems: NavItem[] = [
   },
   {
     href: "/sobre-nosotros",
-    label: "Sobre nosotros",
+    labelKey: "navAbout",
     className: "about-link",
     iconClass: "about-icon",
     icon: "/parkingsv/about-icon.png",
@@ -53,35 +55,37 @@ const navItems: NavItem[] = [
 const sessionFeatures = [
   {
     icon: "fa-solid fa-user-gear session-feature-icon",
-    title: "Personalización total",
-    description: "Adaptamos tu experiencia a tus preferencias",
+    titleKey: "sessionFeaturePersonalizationTitle",
+    descriptionKey: "sessionFeaturePersonalizationDesc",
   },
   {
     icon: "fa-solid fa-bookmark session-feature-icon",
-    title: "Organiza favoritos",
-    description: "Guarda tus parqueos preferidos",
+    titleKey: "sessionFeatureSavedTitle",
+    descriptionKey: "sessionFeatureSavedDesc",
   },
   {
     icon: "fa-solid fa-bell session-feature-icon",
-    title: "Notificaciones",
-    description: "Alertas de disponibilidad y promociones",
+    titleKey: "sessionFeatureNotificationsTitle",
+    descriptionKey: "sessionFeatureNotificationsDesc",
   },
   {
     icon: "fa-solid fa-calendar-check session-feature-icon",
-    title: "Reservas anticipadas",
-    description: "Asegura tu espacio antes de llegar",
+    titleKey: "sessionFeatureReservationsTitle",
+    descriptionKey: "sessionFeatureReservationsDesc",
   },
 ] as const;
 
 export function SiteHeader({ activePage }: SiteHeaderProps) {
   const pathname = usePathname();
   const router = useRouter();
+  const preferences = useSitePreferences();
   const [menuOpen, setMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
   const [signupUserType, setSignupUserType] = useState<SignupUserType>("");
   const [sessionOpen, setSessionOpen] = useState(false);
   const { user } = useSessionUser();
+  const dictionary = siteDictionaries[preferences.language];
 
   useEffect(() => {
     // Cuando hay modales abiertos bloqueamos el scroll del body para que la UI no se desacomode.
@@ -134,19 +138,19 @@ export function SiteHeader({ activePage }: SiteHeaderProps) {
           <Link href="/#problematica" onClick={closeMenus}>
             <img
               src="/parkingsv/logo-parking-sv.png"
-              alt="Logo Parking SV"
+              alt={dictionary.brandName}
               width={60}
               height={60}
             />
           </Link>
-          <h2 className="name">Parking SV</h2>
+          <h2 className="name">{dictionary.brandName}</h2>
         </div>
 
         <button
           type="button"
           className="navbar-toggle"
           id="navbarToggle"
-          aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-label={menuOpen ? dictionary.navCloseMenu : dictionary.navMenuToggle}
           onClick={() => setMenuOpen((current) => !current)}
         >
           <span />
@@ -160,7 +164,7 @@ export function SiteHeader({ activePage }: SiteHeaderProps) {
               const isActive = item.activePages.includes(resolvedActivePage);
 
               return (
-                <li key={item.label} className="nav-item">
+                <li key={item.href} className="nav-item">
                   <a
                     href={item.href}
                     className={`nav-link ${item.className} ${isActive ? "active" : ""}`}
@@ -169,11 +173,11 @@ export function SiteHeader({ activePage }: SiteHeaderProps) {
                     <img
                       src={item.icon}
                       className={item.iconClass}
-                      alt={`Icono ${item.label.toLowerCase()}`}
+                      alt={`${dictionary.brandName} ${dictionary[item.labelKey].toLowerCase()}`}
                       width={30}
                       height={30}
                     />
-                    <span>{item.label}</span>
+                    <span>{dictionary[item.labelKey]}</span>
                   </a>
                 </li>
               );
@@ -183,7 +187,7 @@ export function SiteHeader({ activePage }: SiteHeaderProps) {
               <a href="#" id="userMenuBtn" onClick={toggleUserMenu}>
                 <img
                   src={user?.profilePicture ?? "/parkingsv/default-avatar.jpeg"}
-                  alt={user ? `Foto de perfil de ${user.fullName}` : "Foto de perfil"}
+                  alt={user ? `Profile picture of ${user.fullName}` : "Profile picture"}
                   className="user-profile-picture"
                   id="userMenuIcon"
                   width={53}
@@ -200,23 +204,26 @@ export function SiteHeader({ activePage }: SiteHeaderProps) {
                           ? {
                               href: "/mis-parqueos",
                               icon: "fa-solid fa-square-parking",
-                              label: "Mis parqueos",
+                              label: dictionary.userMyParkings,
                             }
                           : {
                               href: "/mis-reservas",
                               icon: "fa-solid fa-calendar-check",
-                              label: "Mis reservas",
+                              label: dictionary.userReservations,
                             };
 
                       return (
                         <>
                     <li className="user-dropdown-summary">
                       <span>{user.fullName}</span>
-                      <small>{user.userType === "owner" ? "Propietario" : "Cliente"}</small>
+                      <small>
+                        {user.userType === "owner" ? dictionary.userOwnerRole : dictionary.userCustomerRole}
+                      </small>
                     </li>
                     <li>
                       <Link href="/mi-cuenta" onClick={closeMenus}>
-                        <i className="fa-solid fa-user" aria-hidden="true" /> <span>Mi cuenta</span>
+                        <i className="fa-solid fa-user" aria-hidden="true" />{" "}
+                        <span>{dictionary.userAccount}</span>
                       </Link>
                     </li>
                     <li>
@@ -227,31 +234,32 @@ export function SiteHeader({ activePage }: SiteHeaderProps) {
                     <li>
                       <Link href="/guardados" onClick={closeMenus}>
                         <i className="fa-solid fa-bookmark" aria-hidden="true" />{" "}
-                        <span>Guardados</span>
+                        <span>{dictionary.userSaved}</span>
                       </Link>
                     </li>
                     <li>
                       <Link href="/notificaciones" onClick={closeMenus}>
                         <i className="fa-solid fa-bell" aria-hidden="true" />{" "}
-                        <span>Notificaciones</span>
+                        <span>{dictionary.userNotifications}</span>
                       </Link>
                     </li>
                     <li>
                       <Link href="/configuracion" onClick={closeMenus}>
                         <i className="fa-solid fa-gear" aria-hidden="true" />{" "}
-                        <span>Configuración</span>
+                        <span>{dictionary.userSettings}</span>
                       </Link>
                     </li>
                     <li>
                       <Link href="/parqueos" onClick={closeMenus}>
-                        <i className="fa-solid fa-car" aria-hidden="true" /> <span>Explorar parqueos</span>
+                        <i className="fa-solid fa-car" aria-hidden="true" />{" "}
+                        <span>{dictionary.navParkings}</span>
                       </Link>
                     </li>
                     <li>
                       <form action={logoutAction} className="user-dropdown-form">
                         <button type="submit" className="user-dropdown-button">
                           <i className="fa-solid fa-right-from-bracket" aria-hidden="true" />
-                          <span>Cerrar sesión</span>
+                          <span>{dictionary.userLogout}</span>
                         </button>
                       </form>
                     </li>
@@ -263,29 +271,32 @@ export function SiteHeader({ activePage }: SiteHeaderProps) {
                   <>
                     <li>
                       <a href="#" className="restricted-link" onClick={handleRestrictedLink}>
-                        <i className="fa-solid fa-user" aria-hidden="true" /> <span>Mi cuenta</span>
+                        <i className="fa-solid fa-user" aria-hidden="true" />{" "}
+                        <span>{dictionary.userAccount}</span>
                       </a>
                     </li>
                     <li>
                       <a href="#" className="restricted-link" onClick={handleRestrictedLink}>
                         <i className="fa-solid fa-calendar-check" aria-hidden="true" />{" "}
-                        <span>Mis reservas</span>
+                        <span>{dictionary.userReservations}</span>
                       </a>
                     </li>
                     <li>
                       <a href="#" className="restricted-link" onClick={handleRestrictedLink}>
-                        <i className="fa-solid fa-bookmark" aria-hidden="true" /> <span>Guardados</span>
+                        <i className="fa-solid fa-bookmark" aria-hidden="true" />{" "}
+                        <span>{dictionary.userSaved}</span>
                       </a>
                     </li>
                     <li>
                       <a href="#" className="restricted-link" onClick={handleRestrictedLink}>
                         <i className="fa-solid fa-bell" aria-hidden="true" />{" "}
-                        <span>Notificaciones</span>
+                        <span>{dictionary.userNotifications}</span>
                       </a>
                     </li>
                     <li>
                       <a href="#" className="restricted-link" onClick={handleRestrictedLink}>
-                        <i className="fa-solid fa-gear" aria-hidden="true" /> <span>Configuración</span>
+                        <i className="fa-solid fa-gear" aria-hidden="true" />{" "}
+                        <span>{dictionary.userSettings}</span>
                       </a>
                     </li>
                   </>
@@ -310,26 +321,24 @@ export function SiteHeader({ activePage }: SiteHeaderProps) {
             <div className="session-modal-icon">
               <img
                 src="/parkingsv/locked.png"
-                alt="Bloqueado"
+                alt="Locked"
                 className="lock-icon"
                 width={100}
                 height={100}
               />
             </div>
-            <h2 className="session-modal-title">No iniciaste sesión</h2>
-            <p className="session-modal-subtitle">
-              Inicia sesión para desbloquear estos beneficios exclusivos
-            </p>
+            <h2 className="session-modal-title">{dictionary.sessionTitle}</h2>
+            <p className="session-modal-subtitle">{dictionary.sessionSubtitle}</p>
           </div>
 
           <div className="session-modal-features-container">
             <div className="features-scroll">
               {sessionFeatures.map((feature) => (
-                <div key={feature.title} className="session-feature-item">
+                <div key={feature.titleKey} className="session-feature-item">
                   <i className={feature.icon} aria-hidden="true" />
                   <div className="session-feature-text">
-                    <h3>{feature.title}</h3>
-                    <p>{feature.description}</p>
+                    <h3>{dictionary[feature.titleKey]}</h3>
+                    <p>{dictionary[feature.descriptionKey]}</p>
                   </div>
                 </div>
               ))}
@@ -344,7 +353,7 @@ export function SiteHeader({ activePage }: SiteHeaderProps) {
               onClick={navigateToLogin}
             >
               <i className="fa-solid fa-right-to-bracket" aria-hidden="true" />
-              <span>Iniciar sesión</span>
+              <span>{dictionary.sessionLogin}</span>
             </button>
             <button
               id="sessionModalGuest"
@@ -353,12 +362,12 @@ export function SiteHeader({ activePage }: SiteHeaderProps) {
               onClick={() => setSessionOpen(false)}
             >
               <i className="fa-solid fa-user-secret" aria-hidden="true" />
-              <span>Explorar como invitado</span>
+              <span>{dictionary.sessionGuest}</span>
             </button>
             <p className="account-prompt">
-              <span>¿No tienes cuenta?</span>{" "}
+              <span>{dictionary.sessionNoAccount}</span>{" "}
               <span className="register-link" onClick={navigateToRegister}>
-                Crear una cuenta
+                {dictionary.sessionCreateAccount}
               </span>
             </p>
           </div>
@@ -380,7 +389,7 @@ export function SiteHeader({ activePage }: SiteHeaderProps) {
             type="button"
             className="close-modal"
             id="closeModalBtn"
-            aria-label="Cerrar modal"
+            aria-label={dictionary.closeModal}
             onClick={() => setAuthOpen(false)}
           >
             &times;
@@ -393,7 +402,7 @@ export function SiteHeader({ activePage }: SiteHeaderProps) {
                 className="auth-tab active"
                 onClick={navigateToLogin}
               >
-                Iniciar sesión
+                {dictionary.sessionLogin}
               </button>
               <button
                 id="switchSignup"
@@ -401,14 +410,14 @@ export function SiteHeader({ activePage }: SiteHeaderProps) {
                 className="auth-tab"
                 onClick={navigateToRegister}
               >
-                Registrarse
+                {dictionary.signupSubmit}
               </button>
           </div>
 
           <div className="logo-container">
             <img
               src="/parkingsv/logo-parking-sv.png"
-              alt="Logo Parking SV"
+              alt={dictionary.brandName}
               className="auth-logo"
               width={80}
               height={80}
@@ -427,14 +436,24 @@ export function SiteHeader({ activePage }: SiteHeaderProps) {
           >
             <div className="form-group">
               <i className="fa-solid fa-envelope" aria-hidden="true" />
-              <input type="email" name="loginEmail" placeholder="Correo electrónico" required />
+              <input
+                type="email"
+                name="loginEmail"
+                placeholder={dictionary.loginEmailPlaceholder}
+                required
+              />
             </div>
             <div className="form-group">
               <i className="fa-solid fa-lock" aria-hidden="true" />
-              <input type="password" name="loginPassword" placeholder="Contraseña" required />
+              <input
+                type="password"
+                name="loginPassword"
+                placeholder={dictionary.loginPasswordPlaceholder}
+                required
+              />
             </div>
             <button type="submit" name="login" className="btn-auth btn-login">
-              Iniciar sesión
+              {dictionary.sessionLogin}
             </button>
           </form>
 
@@ -450,28 +469,43 @@ export function SiteHeader({ activePage }: SiteHeaderProps) {
           >
             <div className="form-group">
               <i className="fa-solid fa-user" aria-hidden="true" />
-              <input type="text" name="name" placeholder="Nombre" required />
+              <input
+                type="text"
+                name="name"
+                placeholder={dictionary.signupNamePlaceholder}
+                required
+              />
             </div>
             <div className="form-group">
               <i className="fa-solid fa-user" aria-hidden="true" />
-              <input type="text" name="lastName" placeholder="Apellidos" required />
+              <input
+                type="text"
+                name="lastName"
+                placeholder={dictionary.signupLastNamePlaceholder}
+                required
+              />
             </div>
             <div className="form-group">
               <i className="fa-solid fa-envelope" aria-hidden="true" />
-              <input type="email" name="email" placeholder="Correo electrónico" required />
+              <input
+                type="email"
+                name="email"
+                placeholder={dictionary.signupEmailPlaceholder}
+                required
+              />
             </div>
             <div className="form-group">
               <i className="fa-solid fa-lock" aria-hidden="true" />
               <input
                 type="password"
                 name="password"
-                placeholder="Contraseña"
+                placeholder={dictionary.signupPasswordPlaceholder}
                 minLength={8}
                 required
               />
             </div>
             <div className="form-group">
-              <label htmlFor="userTypeSelect">¿Eres cliente o propietario?</label>
+              <label htmlFor="userTypeSelect">{dictionary.signupRolePrompt}</label>
               <select
                 name="userType"
                 id="userTypeSelect"
@@ -479,14 +513,20 @@ export function SiteHeader({ activePage }: SiteHeaderProps) {
                 value={signupUserType}
                 onChange={(event) => setSignupUserType(event.target.value as SignupUserType)}
               >
-                <option value="">Selecciona una opción</option>
-                <option value="customer">Cliente</option>
-                <option value="owner">Propietario</option>
+                <option value="">{dictionary.signupRolePlaceholder}</option>
+                <option value="customer">{dictionary.signupCustomer}</option>
+                <option value="owner">{dictionary.signupOwner}</option>
               </select>
             </div>
             <div className="form-group">
               <i className="fa-solid fa-phone" aria-hidden="true" />
-              <input type="text" name="phone" placeholder="Teléfono" required autoComplete="tel" />
+              <input
+                type="text"
+                name="phone"
+                placeholder={dictionary.signupPhonePlaceholder}
+                required
+                autoComplete="tel"
+              />
             </div>
             <div
               className="form-group"
@@ -494,7 +534,7 @@ export function SiteHeader({ activePage }: SiteHeaderProps) {
               style={{ display: signupUserType === "customer" ? "block" : "none" }}
             >
               <i className="fa-solid fa-calendar-days" aria-hidden="true" />
-              <p>Fecha de nacimiento</p>
+              <p>{dictionary.signupBirthDate}</p>
               <input type="date" name="birth_date" id="birthDateInput" />
             </div>
             <div
@@ -506,12 +546,12 @@ export function SiteHeader({ activePage }: SiteHeaderProps) {
               <input
                 type="text"
                 name="business_name"
-                placeholder="Nombre del negocio"
+                placeholder={dictionary.signupBusinessNamePlaceholder}
                 id="businessNameInput"
               />
             </div>
             <button type="submit" name="register" className="btn-auth btn-signup">
-              Registrarse
+              {dictionary.signupSubmit}
             </button>
           </form>
         </div>

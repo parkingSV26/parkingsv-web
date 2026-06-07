@@ -1,0 +1,1024 @@
+.accountContainer {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem 2rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.accountHeader h1 {
+  color: #2c3e50;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #f1c40f;
+}
+
+.personalCard,
+.transportCard,
+.specsCard {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.personalCard:hover,
+.transportCard:hover,
+.specsCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.personalCard {
+  background-color: #fcfde3;
+  border-left: 5px solid #f1c40f;
+}
+
+.transportCard {
+  background-color: #f8f8f8;
+  border-left: 5px solid #c2c2c2;
+}
+
+.specsCard {
+  background-color: #f8f9fa;
+  border-left: 5px solid #6c757d;
+}
+
+.cardTitle,
+.cardTitleAlt {
+  color: #2c3e50;
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.cardTitle::after,
+.cardTitleAlt::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+}
+
+.cardTitle::after {
+  background-color: #f1c40f;
+}
+
+.cardTitleAlt::after {
+  background-color: #234352;
+}
+
+.cardHeaderRow {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.personalContent {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.profilePictureContainer {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  transition: all 0.3s ease;
+}
+
+.profilePicture {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.profilePicture:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.editPfpBtn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #ffe600;
+  color: #000;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s;
+  z-index: 2;
+}
+
+.editPfpBtn:hover {
+  background-color: #fbff00;
+  transform: scale(1.1) translateY(-5px);
+}
+
+.btnEditProfile {
+  background-color: transparent;
+  border: 1px solid #f1c40f;
+  border-radius: 5px;
+  color: #8a6d00;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  padding: 0.55rem 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.btnEditProfile:hover {
+  background-color: #f1c40f;
+  color: #1f2937;
+  transform: translateY(-2px);
+}
+
+.personalInfo {
+  flex: 1;
+  min-width: 250px;
+}
+
+.infoRow {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
+}
+
+.infoRow:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.infoLabel {
+  font-weight: 600;
+  color: #2c3e50;
+  width: 150px;
+  margin-right: 1rem;
+}
+
+.infoValue {
+  flex: 1;
+  word-break: break-word;
+}
+
+.vehiclesSection,
+.specsContent {
+  margin-bottom: 1.5rem;
+}
+
+.vehiclesHeader,
+.specsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.vehiclesHeader h3,
+.specsHeader h3,
+.locationSection h3 {
+  margin: 0;
+  color: #2c3e50;
+}
+
+.btnEditVehicles,
+.btnEditSpecs {
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.btnEditVehicles {
+  border: 1px solid #3498db;
+  color: #3498db;
+}
+
+.btnEditVehicles:hover {
+  background-color: #3498db;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+}
+
+.btnEditSpecs {
+  border: 1px solid #6c757d;
+  color: #6c757d;
+}
+
+.btnEditSpecs:hover {
+  background-color: #6c757d;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(108, 117, 125, 0.3);
+}
+
+.vehiclesList ul,
+.specsList ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.vehicleItem,
+.specItem {
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.7);
+  transition: all 0.3s ease;
+}
+
+.vehicleItem:hover,
+.specItem:hover {
+  transform: translateX(5px);
+}
+
+.vehicleItem:hover {
+  background-color: rgba(52, 152, 219, 0.1);
+}
+
+.specItem:hover {
+  background-color: rgba(108, 117, 125, 0.1);
+}
+
+.vehicleItem i {
+  color: #3498db;
+  width: 20px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.specItem i {
+  color: #6c757d;
+  width: 20px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.specName {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.specValue {
+  color: #7f8c8d;
+}
+
+.noVehicles,
+.noSpecs {
+  color: #7f8c8d;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background-color: rgba(127, 140, 141, 0.1);
+  border-radius: 5px;
+}
+
+.locationSection {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.locationText {
+  color: #34495e;
+  line-height: 1.5;
+  margin: 0 0 10px;
+  padding: 0.75rem;
+  background: #fff;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease;
+}
+
+.locationText:hover {
+  background-color: rgba(52, 152, 219, 0.1);
+}
+
+.btnUpdateLocation {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: background-color 0.3s;
+}
+
+.btnUpdateLocation:hover {
+  background-color: #45a049;
+}
+
+.btnUpdateLocation:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.ownerActions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.ownerBtn {
+  background-color: #2ecc71;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.ownerBtn:hover {
+  background-color: #27ae60;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.logoutBtn {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s;
+  font-size: 1rem;
+  width: 100%;
+  justify-content: center;
+  margin-top: 1rem;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logoutBtn:hover {
+  background-color: #c0392b;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  overflow-y: auto;
+}
+
+.show {
+  display: block;
+  opacity: 1;
+}
+
+.modalContent {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 800px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  transform: translateY(-20px);
+  transition: transform 0.3s ease;
+}
+
+.show .modalContent {
+  transform: translateY(0);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.modalHeader h3 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.5rem;
+}
+
+.closeModal {
+  color: #7f8c8d;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  line-height: 1;
+  position: relative;
+  top: -5px;
+  background: none;
+  border: none;
+}
+
+.closeModal:hover {
+  color: #e74c3c;
+  transform: scale(1.1);
+}
+
+.modalBody {
+  margin-bottom: 1.5rem;
+}
+
+.profileGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.profileField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.profileField span {
+  font-size: 0.95rem;
+}
+
+.profileField input {
+  border: 1px solid #d5dbe0;
+  border-radius: 8px;
+  font-size: 1rem;
+  padding: 0.85rem 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profileField input:focus {
+  outline: none;
+  border-color: #f1c40f;
+  box-shadow: 0 0 0 3px rgba(241, 196, 15, 0.18);
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.vehicleOptionsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.vehicleOptionCard {
+  position: relative;
+  margin-bottom: 15px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.vehicleOptionCard:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+}
+
+.vehicleCheckbox {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.vehicleLabel {
+  display: block;
+  padding: 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.vehicleCheckbox:checked + .vehicleLabel {
+  background-color: #e3f2fd;
+  border-left: 4px solid #2196f3;
+}
+
+.vehicleIcon {
+  font-size: 2.5rem;
+  color: #3498db;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.vehicleInfo {
+  text-align: center;
+}
+
+.vehicleName {
+  font-weight: 600;
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1.1rem;
+}
+
+.vehicleDescription {
+  color: #7f8c8d;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.logoutModalContent {
+  max-width: 400px;
+  text-align: center;
+}
+
+.logoutModalContent .modalHeader {
+  justify-content: center;
+  border-bottom: none;
+}
+
+.logoutModalContent .modalHeader h3 {
+  color: #e74c3c;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoutModalBody p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.logoutIcons {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 1.5rem 0;
+  font-size: 2.5rem;
+  color: #e74c3c;
+  opacity: 0.7;
+}
+
+.btnCancel {
+  background-color: #f5f5f5;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btnCancel:hover {
+  background-color: #e0e0e0;
+}
+
+.btnSaveVehicles,
+.btnSaveSpecs,
+.btnSaveProfile,
+.btnConfirm {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btnSaveVehicles,
+.btnConfirm {
+  background-color: #ffc107;
+  color: #333;
+}
+
+.btnSaveVehicles:hover,
+.btnConfirm:hover {
+  background-color: #ffb300;
+}
+
+.btnSaveVehicles:disabled,
+.btnSaveSpecs:disabled,
+.btnSaveProfile:disabled,
+.btnConfirm:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btnSaveSpecs {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.btnSaveSpecs:hover {
+  background-color: #5a6268;
+}
+
+.btnSaveProfile {
+  background-color: #f1c40f;
+  color: #1f2937;
+}
+
+.btnSaveProfile:hover {
+  background-color: #e0b90e;
+}
+
+.btnLogout {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btnLogout:hover {
+  background-color: #c0392b;
+}
+
+.pfpOptions {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.pfpOption {
+  flex: 1;
+  text-align: center;
+  padding: 25px 15px;
+  border: 2px dashed #e0e0e0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: #fff;
+}
+
+.pfpOption:hover {
+  border-color: #4caf50;
+  background-color: #f1f8e9;
+}
+
+.pfpOption i {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+  color: #2c3e50;
+}
+
+.cameraPreview {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.cameraFeed {
+  width: 100%;
+  border-radius: 8px;
+  background: #000;
+}
+
+.btnCapture {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.btnCapture::before {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  background: #f44336;
+  border-radius: 50%;
+}
+
+.imagePreview {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.previewImg {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.previewActions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.btnRetake {
+  background-color: #f5f5f5;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btnRetake:hover {
+  background-color: #e0e0e0;
+}
+
+.specsOptions {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.specOptionCard {
+  margin-bottom: 15px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.specOptionCard:hover,
+.specOptionActive {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.specOptionActive .specHeaderCard {
+  background-color: #eef4f8;
+}
+
+.specHeaderCard {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background-color: #f8f9fa;
+}
+
+.specIcon {
+  font-size: 1.8rem;
+  color: #6c757d;
+  margin-right: 15px;
+  width: 40px;
+  text-align: center;
+}
+
+.specInfo {
+  flex: 1;
+}
+
+.specInfo h4 {
+  margin: 0 0 5px;
+  color: #2c3e50;
+  font-size: 1.1rem;
+}
+
+.specInfo p {
+  margin: 0;
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.specToggle {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.specCheckbox {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggleSlider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 24px;
+}
+
+.toggleSlider::before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+.specCheckbox:checked + .toggleSlider {
+  background-color: #2196f3;
+}
+
+.specCheckbox:checked + .toggleSlider::before {
+  transform: translateX(26px);
+}
+
+.specValueInput {
+  padding: 0 15px 15px;
+  background-color: white;
+}
+
+.specInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.specInput:focus {
+  outline: none;
+  border-color: #2196f3;
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+}
+
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 15px 20px;
+  border-radius: 5px;
+  color: white;
+  z-index: 1001;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: slideIn 0.3s ease-out;
+  font-weight: 500;
+}
+
+.notificationSuccess {
+  background-color: #2ecc71;
+}
+
+.notificationError {
+  background-color: #e74c3c;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 900px) {
+  .vehicleOptionsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .personalContent,
+  .specsHeader,
+  .specHeaderCard {
+    flex-direction: column;
+  }
+
+  .profileGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .profilePictureContainer {
+    margin: 0 auto 1.5rem;
+  }
+
+  .infoLabel {
+    width: 100%;
+    margin-bottom: 0.25rem;
+  }
+
+  .ownerActions {
+    flex-direction: column;
+  }
+
+  .ownerBtn,
+  .logoutBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .modalContent {
+    margin: 20% auto;
+    padding: 1.5rem;
+  }
+
+  .pfpOptions,
+  .modalFooter {
+    flex-direction: column;
+  }
+
+  .cardHeaderRow {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .specIcon {
+    margin: 0 0 10px;
+  }
+
+  .specToggle,
+  .btnEditSpecs {
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 600px) {
+  .vehicleOptionsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .accountHeader h1 {
+    font-size: 1.5rem;
+  }
+
+  .cardTitle,
+  .cardTitleAlt {
+    font-size: 1.3rem;
+  }
+
+  .modalContent {
+    width: 95%;
+    padding: 1.2rem;
+  }
+}

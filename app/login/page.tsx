@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import LoginForm from "@/app/login/LoginForm";
-import { resolveDefaultRouteForUserType } from "@/app/lib/auth/demo-accounts";
 import { sanitizeAppRedirect } from "@/app/lib/auth/redirect";
-import { getSessionUser } from "@/app/lib/auth/session";
 import { SiteAdSlot } from "@/components/SiteAdSlot";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -22,15 +19,6 @@ type LoginPageProps = {
 export default async function LoginPage({ searchParams }: LoginPageProps) {
   const params = await searchParams;
   const redirectTarget = sanitizeAppRedirect(readFirst(params.redirect));
-  const currentUser = await getSessionUser();
-
-  if (currentUser) {
-    redirect(
-      redirectTarget === "/parqueos"
-        ? resolveDefaultRouteForUserType(currentUser.userType)
-        : redirectTarget,
-    );
-  }
 
   return (
     <>
