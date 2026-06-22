@@ -219,9 +219,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Guardar en favoritos
     const saveBtn = document.querySelector('.save-btn');
     if (saveBtn) {
-        saveBtn.addEventListener('click', function() {
-            const parkingId = this.getAttribute('data-parking-id');
-            const btn = this;
+        saveBtn.addEventListener('click', function(event) {
+            const btn = event.currentTarget;
+            if (!(btn instanceof HTMLButtonElement)) {
+                return;
+            }
+
+            const parkingId = btn.getAttribute('data-parking-id');
             
             fetch('guardar-favorito.php', {
                 method: 'POST',

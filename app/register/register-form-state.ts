@@ -1,6 +1,6 @@
 type RegisterUserType = "" | "customer" | "owner";
 
-// Separamos los tipos del formulario para que la action y el cliente hablen el mismo idioma.
+// Keep the form types separate so the action and the client share the same contract.
 type RegisterFormValues = {
   date_of_birth: string;
   email: string;

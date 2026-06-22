@@ -29,7 +29,7 @@ export default async function ParkingReservationsPage({
   const { parkingId } = await params;
   const sessionUser = await getSessionUser();
 
-  // La ruta conserva el parking en la URL para poder volver directo al panel correcto.
+  // Keep the parking ID in the URL so we can return straight to the correct dashboard.
   if (!sessionUser) {
     redirect(`/login?redirect=/mis-parqueos/${parkingId}/reservas`);
   }

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import type { Parking } from "@/app/parkings/parking-data";
 import type { SavedFolder } from "@/app/saved/_lib/saved-helpers";
 import styles from "../saved.module.css";
@@ -27,24 +27,41 @@ export function FolderAssignmentModal({
   parking,
   title,
 }: FolderAssignmentModalProps) {
+  if (!isOpen) {
+    return null;
+  }
+
+  return (
+    <FolderAssignmentModalBody
+      key={`${parking.id}:${currentFolderId ?? "none"}`}
+      confirmLabel={confirmLabel}
+      currentFolderId={currentFolderId}
+      folders={folders}
+      onClose={onClose}
+      onConfirm={onConfirm}
+      parking={parking}
+      title={title}
+    />
+  );
+}
+
+type FolderAssignmentModalBodyProps = Omit<FolderAssignmentModalProps, "isOpen">;
+
+function FolderAssignmentModalBody({
+  confirmLabel,
+  currentFolderId,
+  folders,
+  onClose,
+  onConfirm,
+  parking,
+  title,
+}: FolderAssignmentModalBodyProps) {
   const [selectedFolderId, setSelectedFolderId] = useState<string | null>(currentFolderId);
-
-  useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
-
-    setSelectedFolderId(currentFolderId);
-  }, [currentFolderId, isOpen, parking.id]);
 
   const selectedFolder = useMemo(
     () => folders.find((folder) => folder.id === selectedFolderId) ?? null,
     [folders, selectedFolderId],
   );
-
-  if (!isOpen) {
-    return null;
-  }
 
   return (
     <div className={styles.modalBackdrop} onClick={onClose}>

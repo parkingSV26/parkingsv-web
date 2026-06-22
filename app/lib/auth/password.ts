@@ -12,7 +12,7 @@ const ARGON2_OPTIONS = {
 } as const;
 
 function normalizeLegacyBcryptHash(hash: string) {
-  // Algunos hashes heredados vienen con prefijo PHP y bcryptjs espera la variante moderna.
+  // Some legacy hashes come with the PHP prefix, and bcryptjs expects the modern variant.
   if (hash.startsWith("$2y$")) {
     return `$2b$${hash.slice(4)}`;
   }
@@ -21,7 +21,7 @@ function normalizeLegacyBcryptHash(hash: string) {
 }
 
 export async function verifyPassword(password: string, passwordHash: string) {
-  // Soportamos Argon2 y bcrypt mientras conviven contraseñas nuevas y legado.
+  // Support Argon2 and bcrypt while new and legacy passwords coexist.
   if (passwordHash.startsWith("$argon2")) {
     return verifyArgon2(passwordHash, password);
   }

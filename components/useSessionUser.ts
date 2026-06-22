@@ -19,7 +19,7 @@ export function useSessionUser() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // El hook consulta la sesión una sola vez y cancela la petición si el componente desaparece.
+    // The hook loads the session once and cancels the request if the component unmounts.
     const controller = new AbortController();
 
     async function loadSession() {
@@ -52,7 +52,7 @@ export function useSessionUser() {
     void loadSession();
 
     const handleProfilePictureUpdated = (event: Event) => {
-      // Esto evita recargar toda la sesión cuando solo cambia el avatar desde mi cuenta.
+      // This avoids reloading the whole session when only the avatar changes from My Account.
       const customEvent = event as CustomEvent<{ url?: string }>;
       const nextUrl = customEvent.detail?.url;
 

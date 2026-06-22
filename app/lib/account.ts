@@ -218,7 +218,7 @@ async function getSelectedVehicleIds(userId: number, metadata: AuthMetadata) {
       return ids;
     }
   } catch {
-    // El proyecto actual en Supabase puede no tener estas tablas aún; usamos metadata real como fallback.
+    // The current Supabase project may not have these tables yet; use real metadata as a fallback.
   }
 
   return Array.isArray(metadata.vehicle_type_ids)
@@ -251,7 +251,7 @@ async function getSpecificationTemplates() {
       }));
     }
   } catch {
-    // Si la tabla aún no existe en Supabase, mantenemos el catálogo funcional con el set esperado del dominio.
+    // If the table does not exist in Supabase yet, keep the catalog functional with the expected domain set.
   }
 
   return FALLBACK_SPECIFICATION_TYPES;
@@ -286,7 +286,7 @@ async function getSpecificationValues(userId: number, metadata: AuthMetadata) {
       return valueMap;
     }
   } catch {
-    // Igual que en vehículos, si el esquema aún no está completo usamos metadata del usuario.
+    // As with vehicles, if the schema is still incomplete we use the user's metadata.
   }
 
   const metadataValues = metadata.user_specifications ?? {};

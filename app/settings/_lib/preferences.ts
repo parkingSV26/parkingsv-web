@@ -106,7 +106,7 @@ export const defaultPreferences: ParkingPreferences = {
   location: true,
 };
 
-// El diccionario centraliza los textos para que la pantalla de configuración cambie de idioma sin duplicar UI.
+// Keep all labels in one place so the settings screen can switch languages without duplicating UI.
 export const settingsDictionaries: Record<PreferenceLanguage, SettingsDictionary> = {
   es: {
     title: "Configura tu experiencia",
@@ -373,7 +373,7 @@ export function readStoredPreferences(userId?: number) {
     return defaultPreferences;
   }
 
-  // Primero intentamos una clave por usuario y luego el fallback global del navegador.
+  // Try the user-specific key first, then fall back to the browser-wide key.
   const candidateKeys = [
     typeof userId === "number" ? getUserPreferencesStorageKey(userId) : null,
     PREFERENCES_STORAGE_KEY,
@@ -387,7 +387,7 @@ export function readStoredPreferences(userId?: number) {
         return normalizePreferences(JSON.parse(rawValue) as Record<string, unknown>);
       }
     } catch {
-      // Si localStorage o el JSON falla, seguimos con el siguiente origen.
+      // If localStorage or the JSON parse fails, move on to the next source.
     }
   }
 
@@ -421,7 +421,7 @@ export function applyPreferencesToDocument(preferences: ParkingPreferences) {
     return;
   }
 
-  // Los data attributes alimentan CSS global y permiten una vista previa inmediata sin recargar.
+  // Data attributes drive the global CSS and give us an immediate preview without reloading.
   const normalized = normalizePreferences(preferences);
   const html = document.documentElement;
   const body = document.body;

@@ -1,4 +1,4 @@
-// Estos tipos mantienen alineadas las variantes de copy de la landing en ambos idiomas.
+// These types keep the landing-page copy variants aligned in both languages.
 export type LanguageCode = "es" | "en";
 
 export type NavCopy = {

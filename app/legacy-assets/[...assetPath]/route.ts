@@ -25,13 +25,13 @@ export async function GET(
     ? normalizedRoot
     : `${normalizedRoot}${path.sep}`;
 
-  // Esta comprobación evita escapar fuera de la carpeta de uploads heredada.
+  // This check prevents path traversal outside the legacy uploads folder.
   if (normalizedPath !== normalizedRoot && !normalizedPath.startsWith(rootWithSeparator)) {
     return new NextResponse("Not found", { status: 404 });
   }
 
   try {
-    // Servimos el archivo original con un content-type razonable para no romper imágenes viejas.
+    // Serve the original file with a reasonable content type so old images keep working.
     const fileBuffer = await readFile(normalizedPath);
     const extension = path.extname(normalizedPath).toLowerCase();
 

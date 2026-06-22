@@ -1,6 +1,6 @@
 import type { UserType } from "@/app/lib/auth/user-types";
 
-// Este estado vive aparte para que el formulario y la action compartan la misma forma de datos.
+// Keep this state separate so the form and the action share the same data shape.
 export type LoginFormState = {
   errorMessage: string;
   fieldErrors: {

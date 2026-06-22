@@ -88,7 +88,7 @@ export function SiteHeader({ activePage }: SiteHeaderProps) {
   const dictionary = siteDictionaries[preferences.language];
 
   useEffect(() => {
-    // Cuando hay modales abiertos bloqueamos el scroll del body para que la UI no se desacomode.
+    // When modals are open, lock body scrolling so the UI does not shift around.
     document.body.style.overflow = authOpen || sessionOpen ? "hidden" : "";
 
     return () => {
@@ -120,7 +120,7 @@ export function SiteHeader({ activePage }: SiteHeaderProps) {
   };
 
   const handleRestrictedLink = (event: MouseEvent<HTMLAnchorElement>) => {
-    // Algunas secciones se anuncian antes de estar listas, así que abrimos el modal de sesión en su lugar.
+    // Some sections are not available yet, so we open the session modal instead.
     event.preventDefault();
     setSessionOpen(true);
     setUserMenuOpen(false);

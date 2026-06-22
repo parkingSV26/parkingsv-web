@@ -84,15 +84,6 @@ const sessionFeatures = [
   },
 ] as const;
 
-const ads = [
-  "Lugares turísticos",
-  "Carwash para autos",
-  "Talleres mecánicos",
-  "Tiendas de accesorios vehiculares",
-  "Restaurantes cercanos",
-  "Servicios de taxi",
-] as const;
-
 const currentYear = new Date().getFullYear();
 
 export default function HomePage() {
@@ -380,8 +371,8 @@ export default function HomePage() {
               pensados para conductores.
             </p>
           </div>
-          <a href="#footer-contact" className="inline-ad-slot__cta">
-            Reservar espacio
+          <a href="/anunciarse" className="inline-ad-slot__cta">
+            Abrir formulario
           </a>
         </section>
 
@@ -434,9 +425,23 @@ export default function HomePage() {
               <p className="feature-item">Ahorro de tiempo, combustible y dinero</p>
             </div>
             <div className="carousel-slide-img">
-              <img src="/parkingsv/value-card.png" alt="por que Parking SV" />
+              <img src="/parkingsv/teamf.jpg" alt="Equipo Parking SV" />
             </div>
           </div>
+        </section>
+
+        <section className="commercial-cta snap-section" id="anuncios">
+          <div className="commercial-cta__content">
+            <span className="commercial-cta__eyebrow">Espacio comercial</span>
+            <h3>Anúnciate aquí</h3>
+            <p>
+              Completa una solicitud simple con tu cuenta y te respondemos en un máximo de una
+              semana.
+            </p>
+          </div>
+          <a href="/anunciarse" className="commercial-cta__button">
+            Ir al formulario
+          </a>
         </section>
 
         <div className="message-modal" id="messageModal" style={{ display: "none" }}>
@@ -600,15 +605,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="ad-card snap-section" id="anuncios">
-          <h3 className="ad-title">Anúnciate Aquí</h3>
-          <p className="ad-subtitle">Ejemplos de anunciantes potenciales:</p>
-          <ul className="ad-examples">
-            {ads.map((ad) => (
-              <li key={ad}>{ad}</li>
-            ))}
-          </ul>
-        </div>
       </main>
 
       <section className="site-ad-slot" id="footer-contact">
@@ -620,7 +616,7 @@ export default function HomePage() {
             sin interrumpir la experiencia.
           </p>
         </div>
-        <a href="#anuncios" className="site-ad-slot__cta">
+        <a href="/anunciarse" className="site-ad-slot__cta">
           Quiero anunciarme
         </a>
       </section>

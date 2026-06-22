@@ -16,6 +16,26 @@ import { createSupabaseServerClient } from "@/src/lib/supabase/server";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+function getLoginCopy(language: string) {
+  return language === "en"
+    ? {
+        invalidCredentials: "Incorrect email or password. Check your credentials and try again.",
+        invalidEmail: "Enter a valid email address.",
+        missingEmail: "Enter your email.",
+        missingPassword: "Enter your password.",
+        passwordTooShort: "Password must be at least 8 characters long.",
+        signInFailed: "Unable to sign in. Please try again.",
+      }
+    : {
+        invalidCredentials: "Correo o contrasena incorrectos. Revisa las credenciales e intenta nuevamente.",
+        invalidEmail: "Ingresa un correo valido.",
+        missingEmail: "Ingresa tu correo.",
+        missingPassword: "Ingresa tu contrasena.",
+        passwordTooShort: "La contrasena debe tener al menos 8 caracteres.",
+        signInFailed: "No se pudo iniciar sesion. Intenta nuevamente.",
+      };
+}
+
 function createState(
   redirectTarget: string,
   email: string,
@@ -41,21 +61,23 @@ export async function loginAction(
 ): Promise<LoginFormState> {
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const password = String(formData.get("password") ?? "").trim();
+  const language = String(formData.get("language") ?? "es");
   const redirectTarget = sanitizeAppRedirect(String(formData.get("redirect") ?? ""));
   let redirectPath: string | null = null;
+  const copy = getLoginCopy(language);
 
   const fieldErrors: LoginFormState["fieldErrors"] = {};
 
   if (!email) {
-    fieldErrors.email = "Ingresa tu correo.";
+    fieldErrors.email = copy.missingEmail;
   } else if (!emailPattern.test(email)) {
-    fieldErrors.email = "Ingresa un correo valido.";
+    fieldErrors.email = copy.invalidEmail;
   }
 
   if (!password) {
-    fieldErrors.password = "Ingresa tu contrasena.";
+    fieldErrors.password = copy.missingPassword;
   } else if (password.length < 8) {
-    fieldErrors.password = "La contrasena debe tener al menos 8 caracteres.";
+    fieldErrors.password = copy.passwordTooShort;
   }
 
   if (fieldErrors.email || fieldErrors.password) {
@@ -116,7 +138,7 @@ export async function loginAction(
           email,
           password,
           {},
-          "Correo o contrasena incorrectos. Revisa las credenciales e intenta nuevamente.",
+          copy.invalidCredentials,
         );
       }
     }
@@ -134,7 +156,7 @@ export async function loginAction(
       String(formData.get("email") ?? "").trim().toLowerCase(),
       String(formData.get("password") ?? "").trim(),
       {},
-      getSupabaseFriendlyErrorMessage(error, "No se pudo iniciar sesion. Intenta nuevamente."),
+      getSupabaseFriendlyErrorMessage(error, copy.signInFailed),
     );
   }
 

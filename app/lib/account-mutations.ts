@@ -49,7 +49,7 @@ export async function syncVehicleSelections(userId: number, vehicleIds: number[]
       }
     }
   } catch {
-    // El esquema actual puede no incluir la tabla en Supabase todavía; metadata sigue siendo la fuente inmediata.
+    // The current schema may not include the table in Supabase yet; metadata is still the immediate source.
   }
 }
 
@@ -83,6 +83,6 @@ export async function syncSpecificationSelections(
       }
     }
   } catch {
-    // Si la tabla aún no existe en Supabase, la metadata del usuario conserva el estado real.
+    // If the table does not exist in Supabase yet, the user's metadata preserves the real state.
   }
 }

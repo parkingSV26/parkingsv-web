@@ -3,7 +3,7 @@ const FALLBACK_REDIRECT = "/parqueos";
 export function sanitizeAppRedirect(redirectValue: string | null | undefined) {
   const redirect = (redirectValue ?? "").trim();
 
-  // Cerramos puertas a redirects vacíos, externos o con saltos de línea sospechosos.
+  // Block empty, external, or suspicious redirects with line breaks.
   if (!redirect || /[\r\n]/.test(redirect)) {
     return FALLBACK_REDIRECT;
   }
@@ -16,7 +16,7 @@ export function sanitizeAppRedirect(redirectValue: string | null | undefined) {
     return redirect;
   }
 
-  // Permitimos rutas internas simples aunque lleguen sin slash inicial.
+  // Allow simple internal paths even when they arrive without a leading slash.
   if (/^[A-Za-z0-9/_?=&%-]+$/.test(redirect)) {
     return `/${redirect.replace(/^\/+/, "")}`;
   }

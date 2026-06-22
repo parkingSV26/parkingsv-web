@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function SettingsPage() {
-  // La configuración solo tiene sentido si conocemos al usuario que la está guardando.
+  // Settings only make sense if we know which user is saving them.
   const sessionUser = await getSessionUser();
 
   if (!sessionUser) {

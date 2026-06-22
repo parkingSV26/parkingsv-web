@@ -55,7 +55,7 @@ export function SiteFooter() {
           <div className="footer-contact-row">
             <p className="footer-social-title">{dictionary.footerFollow}</p>
             <div className="socials-container">
-              {/* Renderizamos redes desde un arreglo para mantener icono, color y enlace en una sola fuente. */}
+              {/* Render social links from one array so icon, color, and URL stay in sync. */}
               {socialLinks.map((social) => (
                 <a
                   key={social.label}

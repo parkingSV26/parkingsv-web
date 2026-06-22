@@ -15,7 +15,7 @@ export default function SettingsBridge() {
     };
 
     const syncPreferences = () => {
-      // Reaplicamos preferencias al documento cada vez que otra pestaña o pantalla las cambia.
+      // Reapply preferences to the document whenever another tab or screen changes them.
       applyPreferencesToDocument(readStoredPreferences());
     };
 
