@@ -1,30 +1,42 @@
 # Parking SV
 
-Migración del sitio original en `crud-php2/` hacia una app con `Next.js 16` y `React 19`.
+[English](README.md) | [Español](README.es.md)
 
-## Resumen
+**Public demo:** https://parkingsv.vercel.app/
 
-Parking SV mezcla una base visual heredada del proyecto PHP con nuevas pantallas en App Router. El objetivo actual del repo es avanzar la migración de experiencia, rutas y flujos principales sin perder compatibilidad visual con la versión original.
+Parking SV is a parking-discovery and management web application developed as a team project. This repository contains the Next.js web application.
+
+## Related repositories
+
+- **Next.js web application (this repository):** https://github.com/parkingSV26/parkingsv-web
+- **Python implementation:** https://github.com/parkingSV26/PARKING-SV_PYTHON-
+- **Public demo:** https://parkingsv.vercel.app/
+
+The Python repository is maintained separately. The existence of that version should not be read as a claim that the same contributors implemented both codebases.
+
+## Overview
+
+The web application is a migration of the original site in `crud-php2/` toward an application built with Next.js 16 and React 19. The repository combines a visual foundation inherited from the PHP project with newer App Router screens and flows.
 
 ## Stack
 
 - `Next.js 16.2.4`
 - `React 19.2.4`
 - `TypeScript 5`
-- `MySQL` con `mysql2`
-- `nodemailer` para correo transaccional
-- `@node-rs/argon2` y `bcryptjs` para compatibilidad de contraseñas
+- `MySQL` with `mysql2`
+- `nodemailer` for transactional email
+- `@node-rs/argon2` and `bcryptjs` for password compatibility
 
-## Estado del proyecto
+## Project status and scope
 
-- `crud-php2/` sigue dentro del repo como referencia funcional y visual.
-- La app nueva vive sobre todo en `app/`, `components/`, `src/` y `public/`.
-- Varias pantallas ya están migradas y conectadas entre sí.
-- El login y parte del onboarding funcionan en modo demo por cookie.
-- Algunas pantallas ya consumen base de datos y otras todavía usan datos mock.
-- La publicación de parqueos sigue siendo demo y no guarda una publicación nueva real.
+- `crud-php2/` remains in the repository as a functional and visual reference.
+- The newer application is primarily organized in `app/`, `components/`, `src/` and `public/`.
+- Multiple screens and navigation flows have been migrated.
+- Login and parts of onboarding include demo-mode behavior.
+- Some screens use database-backed data while others still use mock data.
+- Parking publication remains a demo flow and does not persist a new real listing.
 
-## Rutas principales
+## Main routes
 
 - `/`
 - `/parqueos`
@@ -44,33 +56,33 @@ Parking SV mezcla una base visual heredada del proyecto PHP con nuevas pantallas
 - `/publicar-parqueo`
 - `/planes`
 
-## Flujo demo
+## Demo flow
 
-En `/login` existen dos cuentas demo listas para probar el producto:
+The `/login` page includes two demo roles:
 
-- `customer`: aterriza en `/mis-reservas`
-- `owner`: aterriza en `/mis-parqueos`
+- `customer`: opens `/mis-reservas`
+- `owner`: opens `/mis-parqueos`
 
-Además:
+Additional role-oriented routes:
 
-- `/publicar-parqueo` solo permite acceso a usuarios `owner`
-- `/mis-reservas` está orientada al rol `customer`
-- `/mis-parqueos` y sus reservas están orientadas al rol `owner`
+- `/publicar-parqueo` is intended for `owner` users.
+- `/mis-reservas` is intended for the `customer` role.
+- `/mis-parqueos` and its reservations are intended for the `owner` role.
 
-## Desarrollo local
+## Run locally
 
 ```bash
 npm install
 npm run dev
 ```
 
-Luego abre `http://localhost:3000`.
+Then open http://localhost:3000.
 
-## Variables de entorno
+## Environment variables
 
-La app puede correr parcialmente sin toda la infraestructura final, pero estas variables son las más relevantes:
+The app can run partially without the complete production infrastructure. The following variables are relevant to the full setup:
 
-```bash
+```env
 DB_HOST=
 DB_PORT=
 DB_USER=
@@ -89,30 +101,28 @@ PENDING_VERIFICATION_SECRET=
 SESSION_SECRET=
 ```
 
-Puedes usar `.env.example` como base.
+Use `.env.example` as a starting point when available. Never commit real credentials or production secrets.
 
-## Estructura rápida
+## Repository structure
 
 ```text
-app/                 Rutas, páginas, route handlers y lógica por feature
-components/          Header, footer y hooks compartidos del sitio
-src/components/      Componentes de la landing y tipos de copy
-public/parkingsv/    Assets visuales usados por la app migrada
-crud-php2/           Sitio original en PHP usado como referencia
-node_modules/next/dist/docs/
-                     Documentación local de la versión actual de Next.js
+app/                 Routes, pages, route handlers and feature logic
+components/          Shared site header, footer and hooks
+src/components/      Landing-page components and copy types
+public/parkingsv/    Visual assets used by the migrated app
+crud-php2/           Original PHP site used as a reference
 ```
 
-## Convenciones importantes
+## Development notes
 
-- Este proyecto usa `App Router`.
-- Antes de cambiar patrones de Next.js, revisa la documentación local en `node_modules/next/dist/docs/`.
-- En esta versión de Next, páginas y layouts son `Server Components` por defecto.
-- Los componentes con estado, efectos o `localStorage` deben quedarse como `Client Components`.
-- Varias vistas conservan datos demo para no bloquear la migración visual mientras se completa el backend.
+- This project uses the Next.js App Router.
+- Check the documentation matching the installed Next.js version before changing framework patterns.
+- Pages and layouts are Server Components by default.
+- Components using state, effects or `localStorage` should be Client Components.
+- Some views retain demo data while backend integration is being completed.
 
-## Notas para migración
+## Migration notes
 
-- Si migras una vista desde PHP, toma `crud-php2/` como fuente de verdad visual.
-- Si una ruta depende del navegador, intenta mover esa parte a un componente cliente pequeño.
-- Si una pantalla mezcla datos demo y datos reales, documenta claramente cuál de los dos domina el flujo.
+- When migrating a view from PHP, use `crud-php2/` as the visual reference.
+- Keep browser-dependent behavior in small client components where practical.
+- Document clearly whether a screen is primarily using demo data or database-backed data.
