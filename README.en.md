@@ -1,108 +1,114 @@
-# Parking SV
+# Parking SV — Parking Discovery & Management
 
-Migration of the original site in `crud-php2/` into a `Next.js 16` and `React 19` app.
+[English](README.md) | [Español](README.es.md)
 
-## Overview
+**Live application:** https://parkingsv.vercel.app/  
+**Web application source:** https://github.com/parkingSV26/parkingsv-web  
+**Related Python prototype:** https://github.com/parkingSV26/PARKING-SV_PYTHON-
 
-Parking SV combines the visual language of the original PHP project with new screens built in the App Router. The current goal of this repo is to keep moving the experience, routes, and core flows forward without losing compatibility with the original version.
+## Product overview
 
-## Stack
+Parking SV is a team-developed web application concept for connecting drivers who need parking with owners who want to publish and manage parking spaces. It brings parking discovery, location details and role-oriented account experiences into one web interface.
 
-- `Next.js 16.2.4`
-- `React 19.2.4`
-- `TypeScript 5`
-- `Supabase` via `@supabase/supabase-js` and `@supabase/ssr`
-- `@node-rs/argon2` and `bcryptjs` for password compatibility
+The application is designed around two main audiences:
 
-## Project Status
+- **Drivers:** explore published parking options, review location and pricing information, save places and access reservation-related areas.
+- **Parking owners:** manage their parking information and access owner-oriented tools for listings and reservations.
 
-- `crud-php2/` is still in the repo as a functional and visual reference.
-- The new app lives mostly in `app/`, `components/`, `src/`, and `public/`.
-- Several screens have already been migrated and wired together.
-- Login and part of onboarding work in demo mode through a cookie.
-- Some screens already read from the database, while others still use mock data.
-- Parking publication is still a demo flow and does not persist a real new listing yet.
+## Main product areas
 
-## Main Routes
+- Public landing page and parking catalogue.
+- Parking detail views with location, schedule, rates, capacity, services, restrictions, images and review information when available.
+- Account registration, sign-in, email-verification and profile-related screens.
+- Customer-oriented areas for saved parking, reservations, notifications and preferences.
+- Owner-oriented areas for managing parking spaces and related reservations.
+- Plans and advertising sections.
 
-- `/`
-- `/parqueos`
-- `/parqueos/[slug]`
-- `/sobre-nosotros`
-- `/login`
-- `/register`
-- `/verify-email`
-- `/mi-cuenta`
-- `/mis-reservas`
-- `/mis-parqueos`
-- `/mis-parqueos/[parkingId]/reservas`
-- `/guardados`
-- `/guardados/carpeta/[id]`
-- `/notificaciones`
-- `/configuracion`
-- `/publicar-parqueo`
-- `/planes`
+The actual behavior of each flow depends on its current integration status; the scope notes below distinguish implemented data flows from demonstration interfaces.
 
-## Demo Flow
+## How the application works
 
-There are two demo accounts available at `/login`:
+The web application uses the **Next.js App Router** and React components to render its pages and interactive experiences. Route handlers and server-side modules organize application operations. Supabase is used for authentication/session integration and relational data access.
 
-- `customer`: lands on `/mis-reservas`
-- `owner`: lands on `/mis-parqueos`
+The parking data layer queries published records from Supabase and maps related tables—such as locations, categories, images, capacity, fees, services, restrictions and reviews—into the model used by the interface. Server-side Supabase clients are kept separate from browser-facing code, and the application uses the Supabase SSR integration to manage server-rendered sessions.
 
-Also:
+The repository also contains **crud-php2/**, the earlier PHP implementation retained as a functional and visual reference during the migration.
 
-- `/publicar-parqueo` only allows `owner` users
-- `/mis-reservas` is oriented to the `customer` role
-- `/mis-parqueos` and its reservations are oriented to the `owner` role
+## Technology stack
 
-## Local Development
+- **Next.js 16** — App Router, pages and route handlers.
+- **React 19** — reusable interface components.
+- **TypeScript 5** — typed application logic and data models.
+- **Tailwind CSS 4** — styling and layout utilities.
+- **Supabase** — PostgreSQL data access, authentication/session integration and storage.
+- **@supabase/ssr** and **@supabase/supabase-js** — server-side and client library integration.
+- **Argon2 / bcryptjs** — password-hash compatibility utilities present in the project.
 
-```bash
-npm install
-npm run dev
-```
+## Current implementation scope
 
-Then open `http://localhost:3000`.
+Parking SV is an evolving team project rather than a claim that every proposed product workflow is already production-complete.
 
-## Environment Variables
+- Published parking information is read through the Supabase-backed data layer.
+- The repository contains API and server-side modules for accounts, authentication, favorites, notifications, preferences, parking records and reservations.
+- Some interfaces and flows still use demonstration or placeholder data.
+- The parking-publication experience should be treated as a prototype flow unless its persistence is verified in the current deployment.
+- A visible screen or route does not, by itself, guarantee real-time availability, a confirmed booking, payment processing or production-grade operation.
 
-The app can run partially without the full production setup, but these variables are the most relevant:
+This distinction matters when evaluating the project: the repository demonstrates full-stack application structure and ongoing integration work, while its production scope remains under development.
 
-```bash
+## Local development
+
+### Requirements
+
+- Node.js compatible with the installed Next.js version.
+- npm.
+- A Supabase project for database-backed features.
+
+### Setup
+
+~~~bash
+npm ci
+~~~
+
+Create a local **.env.local** file with the environment values used by the application:
+
+~~~env
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
-
 SUPABASE_SERVICE_ROLE_KEY=
-SUPABASE_AVATARS_BUCKET=
-SUPABASE_PARKINGS_BUCKET=
-SITE_URL=
-```
+SUPABASE_AVATARS_BUCKET=avatars
+SUPABASE_PARKINGS_BUCKET=parkings
+SITE_URL=http://localhost:3000
+~~~
 
-You can use `.env.example` as a starting point.
+The service-role key is server-only and must never be exposed in browser code or committed to the repository.
 
-## Quick Structure
+Start the development server:
 
-```text
-app/                 Routes, pages, route handlers, and feature-specific logic
-components/          Shared header, footer, and hooks for the site
-src/components/      Landing page components and copy types
-public/parkingsv/    Visual assets used by the migrated app
-crud-php2/           Original PHP site kept as a reference
-node_modules/next/dist/docs/
-                     Local documentation for the current Next.js version
-```
+~~~bash
+npm run dev
+~~~
 
-## Important Conventions
+Open http://localhost:3000.
 
-- This project uses the `App Router`.
-- Before changing Next.js patterns, check the local docs in `node_modules/next/dist/docs/`.
-- In this Next version, pages and layouts are `Server Components` by default.
-- Components that use state, effects, or `localStorage` should stay as `Client Components`.
-- Several views still keep demo data so the visual migration can move ahead while the backend is finished.
+Other available checks:
 
-## Migration Notes
+~~~bash
+npm run lint
+npm run build
+~~~
 
-- If you migrate a view from PHP, treat `crud-php2/` as the visual source of truth.
-- If a route depends on the browser, try moving that part into a small client component.
-- If a screen mixes demo data with real data, document which one drives the flow.
+## Repository layout
+
+~~~text
+app/                 App Router pages, route handlers and feature modules
+components/          Shared interface components
+src/lib/supabase/    Supabase client, server and environment helpers
+src/components/      Landing-page components and content types
+public/              Static assets
+crud-php2/           Earlier PHP implementation used as a reference
+~~~
+
+## Project context
+
+Parking SV was developed collaboratively. This repository documents the Next.js web application; the Python repository is a separate codebase with its own source history and should not be treated as the same implementation or as proof that the same contributors built both versions.
